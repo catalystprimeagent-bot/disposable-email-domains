@@ -1,0 +1,14 @@
+# The data files are the product and are consumed by machines. Pin them to LF so a
+# clone or commit from a Windows checkout can never rewrite all ~98,000 lines as CRLF.
+domains.txt text eol=lf
+domains.json text eol=lf
+
+*.py text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
+
+# Keep the big generated files out of diffs and language stats: reviewing a 98,000-line
+# machine-generated list line by line is noise, and they would otherwise make the repo
+# read as a "Text" project rather than the Python that builds them.
+domains.txt linguist-generated=true
+domains.json linguist-generated=true

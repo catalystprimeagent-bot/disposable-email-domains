@@ -1,0 +1,45 @@
+# Keeps domains.txt / domains.json current with zero recurring human work.
+# Runs daily, regenerates the list from the sources in scripts/update.py, and commits
+# the diff only if the list actually changed. Free: public repo, standard GitHub-hosted
+# runner, no paid Actions minutes, no secrets, no third-party API keys.
+name: Update domain list
+
+on:
+  schedule:
+    - cron: "30 6 * * *"  # 06:30 UTC daily, off the hour on purpose (avoids top-of-hour load)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-domain-list
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Regenerate domains.txt and domains.json
+        run: python3 scripts/update.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add domains.txt domains.json
+          if git diff --cached --quiet; then
+            echo "No changes, list is already current."
+            exit 0
+          fi
+          added=$(git diff --cached --numstat -- domains.txt | awk '{print $1}')
+          removed=$(git diff --cached --numstat -- domains.txt | awk '{print $2}')
+          git commit -m "Update domain list (+${added:-0}/-${removed:-0} lines)"
+          git push
