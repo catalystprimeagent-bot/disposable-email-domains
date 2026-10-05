@@ -1,7 +1,7 @@
 # disposable-email-domains
 
 A maintained, machine-readable list of disposable / throwaway / temporary email domains.
-97,879 domains as of the last update, merged and de-duplicated from four permissively
+97,918 domains as of the last update, merged and de-duplicated from four permissively
 licensed upstream lists, auto-refreshed daily by GitHub Actions.
 
 - `domains.txt`: one lowercase domain per line, sorted, newline-terminated.
@@ -47,15 +47,27 @@ merges them into one de-duplicated, sorted set, and writes `domains.txt` and
 script once a day and commits the result only if it changed, so the list stays current
 with no recurring human work.
 
-Three things protect the list from a bad upstream day, because the build commits without
+Four things protect the list from a bad upstream day, because the build commits without
 human review:
 
 - If a source stops responding, the build continues on the remaining sources.
 - If the merged result falls below a floor of 10,000 domains, the build fails rather than
   overwrite a good list with a broken one.
-- If any source ever lists a known-real provider (`gmail.com`, `outlook.com` and about 60
-  others) as disposable, the build fails and publishes nothing. A false positive on a
-  major provider is worse than a stale list, so this one is a hard stop.
+- **An exclusion stage removes known false positives before publishing**, rather than
+  failing the build. Source: `disposable/disposable`'s own hand-curated
+  [`whitelist.txt`](https://github.com/disposable/disposable/blob/master/whitelist.txt) —
+  domains its maintainers manually reviewed and removed as not actually disposable
+  (MIT-licensed, reused with attribution). Found 2026-10-05: our merge had silently
+  reintroduced 16 of those 39 domains, including `asics.com` and `nus.edu.sg`, because our
+  own sources overlap with that project's pipeline but without its manual review applied.
+  Flagged by a maintainer declining our PR to that repo — credited in the commit that
+  fixed it.
+- If any source ever lists one of ~66 major global providers (`gmail.com`, `outlook.com`
+  and similar large webmail/ISP domains) as disposable, the build fails and publishes
+  nothing rather than ship that one case. **This is a narrow tripwire for one catastrophic
+  failure mode, not general false-positive protection** — it only covers those ~66
+  specific domains and would not have caught the `asics.com` / `nus.edu.sg` problem above,
+  which is why the exclusion stage exists as a separate mechanism.
 
 ## Sources and licences
 
@@ -72,7 +84,7 @@ file.
 | [wesbos/burner-email-providers](https://github.com/wesbos/burner-email-providers) | MIT | 27,277 | Burner / temporary email provider list. |
 | [disposable-email-domains/disposable-email-domains](https://github.com/disposable-email-domains/disposable-email-domains) | CC0-1.0 | 9,199 | Public-domain dedication, no copyright reserved. Formerly `martenson/disposable-email-domains`. |
 
-Merged, de-duplicated and validated as domain-shaped: **97,879 unique domains**.
+Merged, de-duplicated and validated as domain-shaped, then reduced by the exclusion stage above: **97,918 unique domains**.
 
 The three MIT sources permit redistribution, modification and merging provided the
 copyright and permission notice is preserved, which is why their notices are reproduced

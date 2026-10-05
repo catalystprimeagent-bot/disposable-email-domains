@@ -84,6 +84,31 @@ NEVER_DISPOSABLE = {
     "telus.net", "bigpond.com", "optusnet.com.au",
 }
 
+# Exclusion stage. Separate mechanism from NEVER_DISPOSABLE above: this SUBTRACTS known
+# false positives from the merged set before the tripwire runs, rather than failing the
+# build. Source: disposable/disposable's own hand-curated whitelist.txt
+# (https://github.com/disposable/disposable/blob/master/whitelist.txt), domains their
+# maintainers manually reviewed and removed as not actually disposable. That repo is
+# MIT-licensed (confirmed by reading its LICENSE file directly, not just GitHub's detected
+# label -- Copyright (c) 2017 Andrei Simionescu; Stefan Meinecke, greenSec GmbH), which
+# permits this redistribution; this notice is the attribution MIT requires.
+#
+# Found 2026-10-05: our own merged list reintroduced 16 of these 39 domains (41%),
+# including asics.com and nus.edu.sg, because our sources overlap/derive from
+# disposable/disposable's own pipeline with none of its manual whitelist review applied.
+# Flagged by maintainer smeinecke declining disposable/disposable#306. Snapshot taken
+# 2026-10-05; re-sync periodically as that file grows.
+EXCLUSIONS = {
+    "angi.com", "asics.com", "benilde.edu.ph", "brainonfire.net", "buildingradar.com",
+    "cbamboo.com", "centraldecomunicacion.es", "com.ar", "deity.co.nz", "e2estudios.com",
+    "fake.com", "feedspot.com", "feedspotmailer.com", "file-up.fr", "forwardemail.net",
+    "gide.com", "home.de", "icam.fr", "ke.com", "lendscape.com", "lilo.org",
+    "lionelastomers.com", "mail.htl22.at", "msn.co.uk", "nus.edu.sg", "purple.dev",
+    "ruffrey.com", "samsung.com", "shitware.nl", "sibmail.com", "swatch.com",
+    "tmxnet.com", "ubicloud.com", "wizard.com", "xwaretech.com", "xwaretech.info",
+    "xwaretech.net", "xwaretech.tk", "zoho.com",
+}
+
 
 def fetch(url, timeout=30, retries=2):
     last_exc = None
@@ -126,6 +151,14 @@ def main():
     if not merged:
         print("ERROR: no domains collected from any source, all %d sources failed" % len(SOURCES), file=sys.stderr)
         sys.exit(1)
+
+    excluded_present = sorted(merged & EXCLUSIONS)
+    merged -= EXCLUSIONS
+    if excluded_present:
+        print(
+            "Excluded %d known false positive(s) from disposable/disposable's whitelist: %s"
+            % (len(excluded_present), ", ".join(excluded_present))
+        )
 
     if len(merged) < MIN_DOMAINS:
         print(
