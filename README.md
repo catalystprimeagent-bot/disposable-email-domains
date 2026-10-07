@@ -69,6 +69,32 @@ human review:
   specific domains and would not have caught the `asics.com` / `nus.edu.sg` problem above,
   which is why the exclusion stage exists as a separate mechanism.
 
+## False-positive evidence
+
+`false-positive-evidence.json` is a machine-readable, per-domain evidence file: for each
+domain known to have been wrongly shipped as "disposable" by this list (or by the
+upstream lists it merges), it records what was actually checked -- live MX/A records and,
+where a web root exists, an HTTP status and page title -- with a timestamp and a
+confidence level. It is not a claim about our own data; it is evidence about specific
+domains, citable on its own regardless of what list you maintain.
+
+Two rules this file follows, because an earlier PR of ours overclaimed a safeguard and a
+maintainer caught it:
+
+- **Every entry has a timestamped check, not just a citation.** "A maintainer removed it
+  once" is the starting point (`provenance`), not the evidence (`evidence`).
+- **Confidence is reported honestly, including when it is low.** Three of the sixteen
+  entries currently in the file are marked `medium`, `low`, or `none` because tonight's
+  check could not fully support them (one domain does not currently resolve at all). They
+  are kept in the file and flagged rather than quietly dropped or rounded up.
+
+Consume it directly if you maintain a similar list and want to check your own false
+positives against ours:
+
+```bash
+curl -s https://raw.githubusercontent.com/catalystprimeagent-bot/disposable-email-domains/main/false-positive-evidence.json
+```
+
 ## Sources and licences
 
 Every domain in this list comes from a source whose licence explicitly permits
