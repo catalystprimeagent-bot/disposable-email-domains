@@ -402,6 +402,63 @@
         "note": "NXDOMAIN at the .tk zone tonight: this domain does not currently exist. It appears to be a defunct extra domain from the same operator as xwaretech.com/.net/.info (same brand name), registered on Freenom's free .tk TLD, since expired. We kept it in our exclusion set because the upstream maintainers still list it, but we are not claiming independent evidence it is a live false positive -- an unregistered domain cannot presently be either disposable or legitimate. Recorded honestly rather than silently dropped, so nobody mistakes its presence here for a live-site check."
       },
       "confidence": "none (domain does not currently resolve; included only because upstream still lists it)"
+    },
+    {
+      "domain": "continumail.com",
+      "claim": "not a disposable/temporary email domain",
+      "provenance": {
+        "originally_removed_by": "catalystprimeagent-bot (independent audit, 2026-10-09)",
+        "found_in_our_list": "domains.txt, single-sourced from disposable/disposable-email-domains only (not present in the other 3 upstream sources)",
+        "how_found": "side finding during a tompec/disposable-email-domains#19 contribution run (60-domain DNS sample), re-checked and acted on the next night"
+      },
+      "checked_at": "2026-10-09T07:55Z",
+      "checked_by": "catalystprimeagent-bot (live DNS + HTTP + RDAP, this run)",
+      "evidence": {
+        "mx_records": ["0 continumail-com.mail.protection.outlook.com."],
+        "a_records": ["216.198.79.1"],
+        "http_status": 308,
+        "http_title": "Free Thunderbird & mbox to Outlook PST converter | ContinuMail",
+        "note": "www.continumail.com is a live, named, open-source software product (ContinuMail Converter, GitHub org github.com/ContinuMail, named author) with a DMARC p=reject policy and SPF covering both Outlook (business mailbox) and Resend (transactional sender) -- exactly the profile of a small real SaaS, not disposable-mail infrastructure. RDAP shows the domain registered 2026-03-19 via Cloudflare, consistent with a recently launched product."
+      },
+      "confidence": "high"
+    },
+    {
+      "domain": "mail3x.com",
+      "claim": "not a disposable/temporary email domain",
+      "provenance": {
+        "originally_removed_by": "catalystprimeagent-bot (independent audit, 2026-10-09)",
+        "found_in_our_list": "domains.txt, present in 2 of 4 upstream sources (disposable/disposable-email-domains and FGRibreau/mailchecker)",
+        "how_found": "same side finding as continumail.com, above"
+      },
+      "checked_at": "2026-10-09T07:55Z",
+      "checked_by": "catalystprimeagent-bot (live DNS + HTTP + RDAP, this run)",
+      "evidence": {
+        "mx_records": ["10 mx01.mail.icloud.com.", "10 mx02.mail.icloud.com."],
+        "a_records": ["172.67.198.107", "104.21.60.167"],
+        "http_status": 526,
+        "http_title": null,
+        "note": "TXT records include an apple-domain= verification token and `v=spf1 include:icloud.com ~all` -- this is Apple's Custom Email Domain feature for iCloud Mail, which requires per-domain ownership verification through Apple before activation. That friction is a real signal against mass disposable-domain use. The website itself returns 526 (origin TLS failure through Cloudflare), so we could not confirm what the domain is actually used for day to day -- held at medium confidence rather than high because of that gap, not rounded up."
+      },
+      "confidence": "medium"
+    },
+    {
+      "domain": "grad.bryant.edu",
+      "claim": "not a disposable/temporary email domain",
+      "provenance": {
+        "originally_removed_by": "catalystprimeagent-bot (independent audit, 2026-10-09)",
+        "found_in_our_list": "domains.txt, single-sourced from disposable/disposable-email-domains only",
+        "how_found": "cheap sweep for entries ending .edu/.edu.*/.ac.*/.gov* (329 hits in the merged list); this was in a random 15-domain hand-verified sample from that screen"
+      },
+      "checked_at": "2026-10-09T08:00Z",
+      "checked_by": "catalystprimeagent-bot (live DNS, this run)",
+      "evidence": {
+        "mx_records": ["10 aspmx.l.google.com.", "20 alt1.aspmx.l.google.com.", "30 alt2.aspmx.l.google.com."],
+        "a_records": [],
+        "http_status": null,
+        "http_title": null,
+        "note": "Live Google Workspace MX for a subdomain of bryant.edu. Plain .edu is EDUCAUSE-restricted to accredited US postsecondary institutions, so a real, functioning subdomain of a named accredited university (Bryant University) with live mail is strong evidence against disposable use. No independent HTTP confirmation (subdomain has no web root), held at high rather than certain for that reason."
+      },
+      "confidence": "high"
     }
   ]
 }

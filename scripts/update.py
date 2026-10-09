@@ -107,6 +107,15 @@ EXCLUSIONS = {
     "ruffrey.com", "samsung.com", "shitware.nl", "sibmail.com", "swatch.com",
     "tmxnet.com", "ubicloud.com", "wizard.com", "xwaretech.com", "xwaretech.info",
     "xwaretech.net", "xwaretech.tk", "zoho.com",
+    # Found independently 2026-10-09 (not from disposable/disposable's whitelist.txt --
+    # these are our own catch), by auditing our own published list against itself after a
+    # contribution run flagged two of them as side findings. Live DNS/MX/HTTP evidence for
+    # each is in false-positive-evidence.json. continumail.com and mail3x.com: real small
+    # business/personal domains with enterprise-grade MX. grad.bryant.edu: a live subdomain
+    # of Bryant University (accredited US .edu, Google Workspace MX) -- found by a targeted
+    # sweep for .edu/.edu.*/.ac.*/.gov* entries after the first two were flagged; see that
+    # sweep's writeup for why the other 328 hits in the same screen were left alone.
+    "continumail.com", "mail3x.com", "grad.bryant.edu",
 }
 
 

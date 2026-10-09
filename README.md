@@ -1,7 +1,7 @@
 # disposable-email-domains
 
 A maintained, machine-readable list of disposable / throwaway / temporary email domains.
-96,434 domains as of the last update, merged and de-duplicated from four permissively
+96,431 domains as of the last update, merged and de-duplicated from four permissively
 licensed upstream lists, auto-refreshed daily by GitHub Actions.
 
 - `domains.txt`: one lowercase domain per line, sorted, newline-terminated.
@@ -61,7 +61,11 @@ human review:
   reintroduced 16 of those 39 domains, including `asics.com` and `nus.edu.sg`, because our
   own sources overlap with that project's pipeline but without its manual review applied.
   Flagged by a maintainer declining our PR to that repo — credited in the commit that
-  fixed it.
+  fixed it. Found 2026-10-09, this time by our own audit rather than an outside maintainer:
+  `continumail.com`, `mail3x.com` (real small sites with enterprise-grade MX, surfaced as a
+  side finding while preparing a contribution elsewhere) and `grad.bryant.edu` (a live
+  subdomain of an accredited US university, found by a targeted sweep of `.edu`/`.ac.*`/
+  `.gov*`-shaped entries). Evidence for all three is in `false-positive-evidence.json`.
 - If any source ever lists one of ~66 major global providers (`gmail.com`, `outlook.com`
   and similar large webmail/ISP domains) as disposable, the build fails and publishes
   nothing rather than ship that one case. **This is a narrow tripwire for one catastrophic
@@ -105,12 +109,12 @@ file.
 
 | Source | Licence | Raw domains | Notes |
 | --- | --- | --- | --- |
-| [disposable/disposable-email-domains](https://github.com/disposable/disposable-email-domains) | MIT | 96,305 | Copyright (c) 2017 Andrei Simionescu; Stefan Meinecke, greenSec GmbH. Largest single source. |
-| [FGRibreau/mailchecker](https://github.com/FGRibreau/mailchecker) | MIT | 56,512 | Copyright (c) 2013 Francois-Guillaume Ribreau. Cross-language disposable-email detection list. |
+| [disposable/disposable-email-domains](https://github.com/disposable/disposable-email-domains) | MIT | 96,306 | Copyright (c) 2017 Andrei Simionescu; Stefan Meinecke, greenSec GmbH. Largest single source. |
+| [FGRibreau/mailchecker](https://github.com/FGRibreau/mailchecker) | MIT | 56,513 | Copyright (c) 2013 Francois-Guillaume Ribreau. Cross-language disposable-email detection list. |
 | [wesbos/burner-email-providers](https://github.com/wesbos/burner-email-providers) | MIT | 27,277 | Burner / temporary email provider list. |
 | [disposable-email-domains/disposable-email-domains](https://github.com/disposable-email-domains/disposable-email-domains) | CC0-1.0 | 9,221 | Public-domain dedication, no copyright reserved. Formerly `martenson/disposable-email-domains`. |
 
-Merged, de-duplicated and validated as domain-shaped, then reduced by the exclusion stage above: **96,434 unique domains** (counts above are a fresh fetch taken 2026-10-09, not the original build; the merged total is lower than the raw sum because of de-duplication across sources and the exclusion stage).
+Merged, de-duplicated and validated as domain-shaped, then reduced by the exclusion stage above: **96,431 unique domains** (counts above are a fresh fetch taken 2026-10-09, not the original build; the merged total is lower than the raw sum because of de-duplication across sources and the exclusion stage).
 
 The three MIT sources permit redistribution, modification and merging provided the
 copyright and permission notice is preserved, which is why their notices are reproduced
