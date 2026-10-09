@@ -1,4 +1,4 @@
-# Keeps domains.txt / domains.json current with zero recurring human work.
+# Keeps domains.txt / domains.json / domains-strict.* current with zero recurring human work.
 # Runs daily, regenerates the list from the sources in scripts/update.py, and commits
 # the diff only if the list actually changed. Free: public repo, standard GitHub-hosted
 # runner, no paid Actions minutes, no secrets, no third-party API keys.
@@ -34,7 +34,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add domains.txt domains.json
+          # domains-strict.* must be staged too, or the daily run would publish a fresh
+          # full list next to a frozen strict one and the two would silently diverge.
+          # update.py skips writing them when a source failed, so an unchanged strict file
+          # on a day the full list moved is expected, not a bug.
+          git add domains.txt domains.json domains-strict.txt domains-strict.json
           if git diff --cached --quiet; then
             echo "No changes, list is already current."
             exit 0

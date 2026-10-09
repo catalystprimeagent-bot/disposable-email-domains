@@ -1,11 +1,20 @@
 # disposable-email-domains
 
 A maintained, machine-readable list of disposable / throwaway / temporary email domains.
-96,431 domains as of the last update, merged and de-duplicated from four permissively
+96,398 domains as of the last update, merged and de-duplicated from four permissively
 licensed upstream lists, auto-refreshed daily by GitHub Actions.
 
-- `domains.txt`: one lowercase domain per line, sorted, newline-terminated.
+**We measured how often it is wrong, and we publish the number.** A random-sample audit on
+2026-10-09 put the false-positive rate at **2.75%** (95% CI, high-confidence findings only),
+concentrated almost entirely in the quarter of the list that only one upstream source has
+ever seen. Full method, numbers and limits: [`audit/README.md`](audit/README.md). If a wrong
+block is expensive for you, use the corroborated subset below instead.
+
+- `domains.txt`: one lowercase domain per line, sorted, newline-terminated. 96,398 domains.
 - `domains.json`: the same list as a JSON array of strings.
+- `domains-strict.txt` / `domains-strict.json`: the **corroborated subset**, 73,231 domains
+  that two or more independent sources agree on. Measured false-positive rate **1.00%**
+  against 2.75% for the full list. Fewer wrong blocks, more misses.
 
 ## Use it
 
@@ -35,19 +44,47 @@ const isDisposable = (address) =>
   domains.has(address.split("@").pop().trim().toLowerCase());
 ```
 
-Load the list once and keep it in a set. It is about 98,000 entries, so a linear scan per
+Load the list once and keep it in a set. It is about 96,000 entries, so a linear scan per
 address (`Array.prototype.includes`, or `in` on a Python list) gets slow fast.
+
+Swap `domains` for `domains-strict` in any of the snippets above to use the corroborated
+subset instead. Same format, same refresh, 73,231 domains.
+
+## Which file: full or strict?
+
+Both are built by the same script in the same run, from the same licensed sources, and both
+refresh daily. The difference is corroboration, and the 2026-10-09 audit measured what that
+buys:
+
+| | `domains.txt` | `domains-strict.txt` |
+| --- | --- | --- |
+| domains | 96,398 | 73,231 |
+| rule | any of the 4 sources lists it | 2 or more sources list it |
+| measured false positives | 2.75% | 1.00% |
+| 95% CI | see [`audit/README.md`](audit/README.md) | 0.34-2.90% |
+
+The reason the gap exists, and it was a surprise: 61% of the corroborated domains have no
+DNS at all, against 8.3% of the single-sourced ones. The corroborated majority is largely
+long-dead throwaway domains that every upstream list copied from every other. The
+single-sourced quarter is where the currently live domains are, both the active throwaway
+services and, too often, real businesses.
+
+So the full list is the aggressive one: it catches more live throwaway providers and more
+real businesses. Pick on what a mistake costs you. Signup abuse on a free tier, where a
+wrong block costs little: the full list. A checkout, a quote form, a support inbox: the
+strict list.
 
 ## How it is built
 
 `scripts/update.py` fetches each source below, lower-cases and validates every line as a
 domain (rejecting blanks, comments, and anything that is not a plausible domain shape),
 merges them into one de-duplicated, sorted set, and writes `domains.txt` and
-`domains.json`. A GitHub Actions workflow (`.github/workflows/update.yml`) runs that
+`domains.json`, plus `domains-strict.txt` and `domains-strict.json` holding only the
+domains two or more sources agree on. A GitHub Actions workflow (`.github/workflows/update.yml`) runs that
 script once a day and commits the result only if it changed, so the list stays current
 with no recurring human work.
 
-Four things protect the list from a bad upstream day, because the build commits without
+Five things protect the list from a bad upstream day, because the build commits without
 human review:
 
 - If a source stops responding, the build continues on the remaining sources.
@@ -55,21 +92,32 @@ human review:
   overwrite a good list with a broken one.
 - **An exclusion stage removes known false positives before publishing**, rather than
   failing the build. Source: `disposable/disposable`'s own hand-curated
-  [`whitelist.txt`](https://github.com/disposable/disposable/blob/master/whitelist.txt) —
+  [`whitelist.txt`](https://github.com/disposable/disposable/blob/master/whitelist.txt):
   domains its maintainers manually reviewed and removed as not actually disposable
   (MIT-licensed, reused with attribution). Found 2026-10-05: our merge had silently
   reintroduced 16 of those 39 domains, including `asics.com` and `nus.edu.sg`, because our
   own sources overlap with that project's pipeline but without its manual review applied.
-  Flagged by a maintainer declining our PR to that repo — credited in the commit that
+  Flagged by a maintainer declining our PR to that repo, and credited in the commit that
   fixed it. Found 2026-10-09, this time by our own audit rather than an outside maintainer:
   `continumail.com`, `mail3x.com` (real small sites with enterprise-grade MX, surfaced as a
   side finding while preparing a contribution elsewhere) and `grad.bryant.edu` (a live
   subdomain of an accredited US university, found by a targeted sweep of `.edu`/`.ac.*`/
   `.gov*`-shaped entries). Evidence for all three is in `false-positive-evidence.json`.
+  Then, on 2026-10-09, a random-sample audit of our own published list
+  ([`audit/README.md`](audit/README.md)) found 28 more at high confidence, among them a US
+  commercial insurer, a drinks manufacturer's Turkish arm, a Miami bike shop, a Brussels
+  beauty salon, an Iowa church and a dental practice. All 28 are excluded, with per-domain
+  live evidence. The audit's 29 medium-confidence findings are **not** excluded: each rests
+  on a single evidence leg, and removing domains on one leg is how a list earns the opposite
+  reputation. They are published as an upper band instead.
+- **A corroborated subset is published alongside the full list.** `domains-strict.txt` keeps
+  only domains two or more independent sources list. It is skipped, rather than written
+  wrong, on any run where a source failed to respond: with a source missing, the domains it
+  alone carried would be dropped and the ones it corroborated would look single-sourced.
 - If any source ever lists one of ~66 major global providers (`gmail.com`, `outlook.com`
   and similar large webmail/ISP domains) as disposable, the build fails and publishes
   nothing rather than ship that one case. **This is a narrow tripwire for one catastrophic
-  failure mode, not general false-positive protection** — it only covers those ~66
+  failure mode, not general false-positive protection.** It only covers those ~66
   specific domains and would not have caught the `asics.com` / `nus.edu.sg` problem above,
   which is why the exclusion stage exists as a separate mechanism.
 
@@ -77,8 +125,8 @@ human review:
 
 `false-positive-evidence.json` is a machine-readable, per-domain evidence file: for each
 domain known to have been wrongly shipped as "disposable" by this list (or by the
-upstream lists it merges), it records what was actually checked -- live MX/A records and,
-where a web root exists, an HTTP status and page title -- with a timestamp and a
+upstream lists it merges), it records what was actually checked: live MX/A records and,
+where a web root exists, an HTTP status and page title, each with a timestamp and a
 confidence level. It is not a claim about our own data; it is evidence about specific
 domains, citable on its own regardless of what list you maintain.
 
@@ -87,10 +135,14 @@ maintainer caught it:
 
 - **Every entry has a timestamped check, not just a citation.** "A maintainer removed it
   once" is the starting point (`provenance`), not the evidence (`evidence`).
-- **Confidence is reported honestly, including when it is low.** Three of the sixteen
-  entries currently in the file are marked `medium`, `low`, or `none` because tonight's
-  check could not fully support them (one domain does not currently resolve at all). They
-  are kept in the file and flagged rather than quietly dropped or rounded up.
+- **Confidence is reported honestly, including when it is low.** Three of the first sixteen
+  entries are marked `medium`, `low`, or `none` because the check could not fully support
+  them (one domain does not resolve at all). They are kept in the file and flagged rather
+  than quietly dropped or rounded up.
+- **Two routes in, both labelled.** `provenance` says whether an entry came from
+  `disposable/disposable`'s whitelist (re-verified here, never copied) or from our own
+  random-sample audit. Audit entries name the sample, the seed and the tranche, so you can
+  find the row they came from in `audit/`.
 
 Consume it directly if you maintain a similar list and want to check your own false
 positives against ours:
@@ -109,12 +161,12 @@ file.
 
 | Source | Licence | Raw domains | Notes |
 | --- | --- | --- | --- |
-| [disposable/disposable-email-domains](https://github.com/disposable/disposable-email-domains) | MIT | 96,306 | Copyright (c) 2017 Andrei Simionescu; Stefan Meinecke, greenSec GmbH. Largest single source. |
+| [disposable/disposable-email-domains](https://github.com/disposable/disposable-email-domains) | MIT | 96,296 | Copyright (c) 2017 Andrei Simionescu; Stefan Meinecke, greenSec GmbH. Largest single source. |
 | [FGRibreau/mailchecker](https://github.com/FGRibreau/mailchecker) | MIT | 56,513 | Copyright (c) 2013 Francois-Guillaume Ribreau. Cross-language disposable-email detection list. |
 | [wesbos/burner-email-providers](https://github.com/wesbos/burner-email-providers) | MIT | 27,277 | Burner / temporary email provider list. |
-| [disposable-email-domains/disposable-email-domains](https://github.com/disposable-email-domains/disposable-email-domains) | CC0-1.0 | 9,221 | Public-domain dedication, no copyright reserved. Formerly `martenson/disposable-email-domains`. |
+| [disposable-email-domains/disposable-email-domains](https://github.com/disposable-email-domains/disposable-email-domains) | CC0-1.0 | 9,222 | Public-domain dedication, no copyright reserved. Formerly `martenson/disposable-email-domains`. |
 
-Merged, de-duplicated and validated as domain-shaped, then reduced by the exclusion stage above: **96,431 unique domains** (counts above are a fresh fetch taken 2026-10-09, not the original build; the merged total is lower than the raw sum because of de-duplication across sources and the exclusion stage).
+Merged, de-duplicated and validated as domain-shaped, then reduced by the exclusion stage above: **96,398 unique domains**, of which **73,231** are corroborated by two or more sources (`domains-strict.txt`). Counts above are a fresh fetch taken 2026-10-09, not the original build; the merged total is lower than the raw sum because of de-duplication across sources and the exclusion stage.
 
 The three MIT sources permit redistribution, modification and merging provided the
 copyright and permission notice is preserved, which is why their notices are reproduced

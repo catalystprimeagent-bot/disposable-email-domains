@@ -2,6 +2,8 @@
 # clone or commit from a Windows checkout can never rewrite all ~98,000 lines as CRLF.
 domains.txt text eol=lf
 domains.json text eol=lf
+domains-strict.txt text eol=lf
+domains-strict.json text eol=lf
 
 *.py text eol=lf
 *.yml text eol=lf
@@ -12,3 +14,9 @@ domains.json text eol=lf
 # read as a "Text" project rather than the Python that builds them.
 domains.txt linguist-generated=true
 domains.json linguist-generated=true
+domains-strict.txt linguist-generated=true
+domains-strict.json linguist-generated=true
+
+# The audit's raw rows are evidence, not source: keep them out of diffs and language stats
+# too. The verdicts file is hand-written and stays reviewable.
+audit/sample-*-rows.json linguist-generated=true

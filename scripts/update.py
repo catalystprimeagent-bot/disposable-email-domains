@@ -116,6 +116,22 @@ EXCLUSIONS = {
     # sweep for .edu/.edu.*/.ac.*/.gov* entries after the first two were flagged; see that
     # sweep's writeup for why the other 328 hits in the same screen were left alone.
     "continumail.com", "mail3x.com", "grad.bryant.edu",
+    # Found 2026-10-09 by the random-sample audit (scripts/audit_sample.py, written up in
+    # audit/README.md). These are the 28 domains the audit confirmed at HIGH confidence,
+    # meaning two independent legs: a live web root naming a real-world organisation,
+    # person or product, AND mail hosting that is paid per mailbox or an enterprise
+    # gateway. Per-domain live DNS/HTTP evidence for each is in
+    # false-positive-evidence.json. The audit's 29 MEDIUM-confidence findings rest on one
+    # leg only and are deliberately NOT here: they are published as an upper band instead,
+    # because removing thousands of domains on one leg is how a list earns the opposite
+    # reputation. Promote one only with a second leg added.
+    "aiitkkd.aditya.ac.in", "alcames.org", "biofitstudios.com", "chelsworth.net",
+    "coffeejeans.com.ua", "doitagile.com", "edarnell.com", "elitecycling.net",
+    "fayatpartievi.com", "frytkibelgijskie.pl", "gcbcdiet.com", "gesdonerkebap.com",
+    "heidithorsen.com", "heightsdentalsmiles.com", "kangu24.com", "medha.com",
+    "mey.com.tr", "novibet.com", "oilsandherbs.co.uk", "onegroupconsultoria.com.br",
+    "ppz.pl", "roastersmap.com", "sakuracare.be", "silvertigerconsulting.com",
+    "studenttimes.com", "texasturbine.com", "tmfin.com", "ufginsurance.com",
 }
 
 
@@ -136,6 +152,12 @@ def fetch(url, timeout=30, retries=2):
 def main():
     merged = set()
     per_source_counts = {}
+    # How many of the four sources list each domain. A domain only one source has ever
+    # seen has no corroboration at all, and a random-sample audit on 2026-10-09 measured
+    # those entries at 8.3% false positives against 1.0% for corroborated ones
+    # (audit/README.md). That gap is why domains-strict.txt exists: same build, same
+    # licences, but only domains two or more independent sources agree on.
+    source_count = {}
     failures = []
 
     for name, url, licence, repo in SOURCES:
@@ -147,6 +169,7 @@ def main():
             continue
 
         count = 0
+        seen_here = set()
         for line in text.splitlines():
             d = line.strip().lower()
             if not d or d.startswith("#"):
@@ -154,6 +177,11 @@ def main():
             if DOMAIN_RE.match(d):
                 merged.add(d)
                 count += 1
+                # Per SOURCE, not per line: a source that lists a domain twice must not
+                # look like two sources agreeing.
+                if d not in seen_here:
+                    seen_here.add(d)
+                    source_count[d] = source_count.get(d, 0) + 1
         per_source_counts[name] = count
         print("%s: %d domains" % (name, count))
 
@@ -165,7 +193,7 @@ def main():
     merged -= EXCLUSIONS
     if excluded_present:
         print(
-            "Excluded %d known false positive(s) from disposable/disposable's whitelist: %s"
+            "Excluded %d known false positive(s) (upstream whitelist + our own audits): %s"
             % (len(excluded_present), ", ".join(excluded_present))
         )
 
@@ -198,6 +226,39 @@ def main():
         f.write("\n")
 
     print("Wrote %d unique domains to domains.txt and domains.json" % len(domains))
+
+    # Corroborated subset. Only meaningful when every source answered: with a source
+    # missing, domains it alone carries would be dropped and domains it corroborated would
+    # look single-sourced, so the file would be wrong in both directions. Skip it instead
+    # of publishing a misleading one, and leave the previous good file in place.
+    if failures:
+        print(
+            "Skipped domains-strict.txt: %d source(s) failed this run, so source counts "
+            "are not trustworthy. Leaving the previous strict files untouched."
+            % len(failures),
+            file=sys.stderr,
+        )
+    else:
+        strict = [d for d in domains if source_count.get(d, 0) >= 2]
+        if len(strict) < MIN_DOMAINS:
+            print(
+                "ERROR: strict list has only %d domains (floor is %d) -- refusing to "
+                "write it" % (len(strict), MIN_DOMAINS),
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        with open("domains-strict.txt", "w", encoding="utf-8") as f:
+            for d in strict:
+                f.write(d + "\n")
+        with open("domains-strict.json", "w", encoding="utf-8") as f:
+            json.dump(strict, f, indent=0)
+            f.write("\n")
+        single = len(domains) - len(strict)
+        print(
+            "Wrote %d corroborated domains (2+ sources) to domains-strict.txt and "
+            "domains-strict.json; %d single-sourced domains (%.1f%%) are in the full "
+            "list only" % (len(strict), single, 100.0 * single / len(domains))
+        )
     if failures:
         print("Sources that failed this run (kept going on the rest): %s" % ", ".join(failures))
 

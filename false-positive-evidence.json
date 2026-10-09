@@ -1,464 +1,1594 @@
 {
-  "schema_version": 1,
-  "title": "Verified false-positive evidence: domains removed from catalystprimeagent-bot/disposable-email-domains",
-  "purpose": "Most disposable-email-domain aggregators (including this one, until 2026-10-05) ultimately derive from the same handful of upstream lists. One of them, disposable/disposable, maintains a hand-curated whitelist.txt of domains its maintainers manually reviewed and removed as wrongly classified. This file re-verifies each of those domains independently tonight -- live DNS (MX/A) and a live HTTP fetch where one exists -- rather than repeating the upstream claim unchecked. It exists so other list maintainers can consume machine-readable, per-domain evidence directly, instead of taking our word (or disposable/disposable's) on faith. See README.md for how this file is produced and used.",
-  "generated_at": "2026-10-07T07:45Z",
-  "methodology": "For each domain: `dig MX` and `dig A` against the system resolver, and (if any A record resolved) a 5s HTTPS GET for status code and <title>. No WHOIS lookup was available in this run (tool not installed), so domain age is not claimed anywhere in this file. Where evidence was weak or absent, confidence is marked 'medium', 'low', or 'none' rather than omitting the entry or rounding it up to 'high' -- a prior PR to a different project overclaimed a safeguard that did not hold up under a maintainer's scrutiny, and this file is built specifically not to repeat that.",
-  "upstream_whitelist_full_set_note": "disposable/disposable's whitelist.txt lists 39 domains in total; this file independently re-verifies the 16 that were confirmed present in our own published list before commit 65f52ab (2026-10-05). The other 23 are excluded from our build (see scripts/update.py EXCLUSIONS) on the upstream source alone and are not yet independently checked here -- they are not included in this evidence file until they are.",
-  "entries": [
-    {
-      "domain": "angi.com",
-      "claim": "not a disposable/temporary email domain",
-      "provenance": {
-        "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
-        "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
-        "licence": "MIT",
-        "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
-      },
-      "checked_at": "2026-10-07T07:40Z",
-      "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
-      "evidence": {
-        "mx_records": [
-          "1 aspmx.l.google.com.",
-          "5 alt1.aspmx.l.google.com.",
-          "5 alt2.aspmx.l.google.com.",
-          "10 alt3.aspmx.l.google.com.",
-          "10 alt4.aspmx.l.google.com."
-        ],
-        "a_records": [
-          "172.64.146.241",
-          "104.18.41.15"
-        ],
-        "http_status": 403,
-        "http_title": "Attention Required! | Cloudflare",
-        "note": "403 is a Cloudflare bot-challenge page, not a dead site; MX is a full live Google Workspace record set, consistent with Angi Inc, a real home-services company."
-      },
-      "confidence": "high"
+ "schema_version": 1,
+ "title": "Verified false-positive evidence: domains removed from catalystprimeagent-bot/disposable-email-domains",
+ "purpose": "Most disposable-email-domain aggregators (including this one, until 2026-10-05) ultimately derive from the same handful of upstream lists. One of them, disposable/disposable, maintains a hand-curated whitelist.txt of domains its maintainers manually reviewed and removed as wrongly classified. This file re-verifies each of those domains independently tonight -- live DNS (MX/A) and a live HTTP fetch where one exists -- rather than repeating the upstream claim unchecked. It exists so other list maintainers can consume machine-readable, per-domain evidence directly, instead of taking our word (or disposable/disposable's) on faith. See README.md for how this file is produced and used.",
+ "generated_at": "2026-10-09T11:41:59+00:00",
+ "methodology": "For each domain: `dig MX` and `dig A` against the system resolver, and (if any A record resolved) a 5s HTTPS GET for status code and <title>. No WHOIS lookup was available in this run (tool not installed), so domain age is not claimed anywhere in this file. Where evidence was weak or absent, confidence is marked 'medium', 'low', or 'none' rather than omitting the entry or rounding it up to 'high' -- a prior PR to a different project overclaimed a safeguard that did not hold up under a maintainer's scrutiny, and this file is built specifically not to repeat that. Entries added 2026-10-09 come from a different route and say so in `provenance`: a stratified random-sample audit of our OWN published list (see audit/README.md), where the evidence is live DNS-over-HTTPS (MX/A/TXT/_dmarc) plus an HTTP root fetch recorded at audit time. Only verdicts at confidence 'high' -- meaning both a live web root naming a real-world organisation AND mail hosting that is paid per mailbox or an enterprise gateway -- were promoted here and removed from the list. The audit's medium-confidence findings are deliberately NOT in this file and are NOT excluded from the list; they are reported as an upper band instead.",
+ "upstream_whitelist_full_set_note": "disposable/disposable's whitelist.txt lists 39 domains in total; this file independently re-verifies the 16 that were confirmed present in our own published list before commit 65f52ab (2026-10-05). The other 23 are excluded from our build (see scripts/update.py EXCLUSIONS) on the upstream source alone and are not yet independently checked here -- they are not included in this evidence file until they are.",
+ "entries": [
+  {
+   "domain": "aiitkkd.aditya.ac.in",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:30:44+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "5 alt1.aspmx.l.google.com.",
+     "1 1aspmx.l.google.com."
+    ],
+    "a_records": [],
+    "dmarc_txt": [],
+    "root_txt": [],
+    "http": {
+     "scheme": null,
+     "status": null,
+     "title": ""
     },
-    {
-      "domain": "asics.com",
-      "claim": "not a disposable/temporary email domain",
-      "provenance": {
-        "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
-        "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
-        "licence": "MIT",
-        "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
-      },
-      "checked_at": "2026-10-07T07:40Z",
-      "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
-      "evidence": {
-        "mx_records": [
-          "10 de-smtp-inbound-1.mimecast.com.",
-          "10 de-smtp-inbound-2.mimecast.com."
-        ],
-        "a_records": [
-          "13.32.205.126",
-          "13.32.205.111",
-          "13.32.205.5",
-          "13.32.205.64"
-        ],
-        "http_status": 302,
-        "http_title": null,
-        "note": "Mimecast is an enterprise email-security gateway; this MX pattern plus global CDN A records match a large corporation, not a throwaway domain. asics.com is the global shoe brand ASICS."
-      },
-      "confidence": "high"
+    "triage_signals": [
+     "business-mx:google"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "A subdomain of aditya.ac.in, an accredited Indian institution under the registry-restricted .ac.in namespace, with live Google Workspace MX. Exactly the shape of grad.bryant.edu, which this project already excluded on 2026-10-09 with the same evidence."
+  },
+  {
+   "domain": "alcames.org",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:31:02+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "20 mx2.titan.email.",
+     "10 mx1.titan.email."
+    ],
+    "a_records": [
+     "147.79.72.145",
+     "88.223.87.181"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1; p=none;"
+    ],
+    "root_txt": [
+     "v=spf1 include:spf.titan.email ~all"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "Home | Ascension Lutheran Church, Ames, IA"
     },
-    {
-      "domain": "brainonfire.net",
-      "claim": "not a disposable/temporary email domain",
-      "provenance": {
-        "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
-        "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
-        "licence": "MIT",
-        "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
-      },
-      "checked_at": "2026-10-07T07:40Z",
-      "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
-      "evidence": {
-        "mx_records": [
-          "10 in1-smtp.messagingengine.com.",
-          "20 in2-smtp.messagingengine.com."
-        ],
-        "a_records": [
-          "208.94.117.101"
-        ],
-        "http_status": 200,
-        "http_title": "Tim McCormack | Brain on Fire",
-        "note": "Live personal site with named author, Fastmail-hosted MX (messagingengine.com). Personal domain, not disposable infrastructure."
-      },
-      "confidence": "high"
+    "triage_signals": []
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'Home | Ascension Lutheran Church, Ames, IA'; Titan email MX (paid per mailbox). A named congregation."
+  },
+  {
+   "domain": "angi.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
+    "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
+    "licence": "MIT",
+    "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
+   },
+   "checked_at": "2026-10-07T07:40Z",
+   "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
+   "evidence": {
+    "mx_records": [
+     "1 aspmx.l.google.com.",
+     "5 alt1.aspmx.l.google.com.",
+     "5 alt2.aspmx.l.google.com.",
+     "10 alt3.aspmx.l.google.com.",
+     "10 alt4.aspmx.l.google.com."
+    ],
+    "a_records": [
+     "172.64.146.241",
+     "104.18.41.15"
+    ],
+    "http_status": 403,
+    "http_title": "Attention Required! | Cloudflare",
+    "note": "403 is a Cloudflare bot-challenge page, not a dead site; MX is a full live Google Workspace record set, consistent with Angi Inc, a real home-services company."
+   },
+   "confidence": "high"
+  },
+  {
+   "domain": "asics.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
+    "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
+    "licence": "MIT",
+    "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
+   },
+   "checked_at": "2026-10-07T07:40Z",
+   "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
+   "evidence": {
+    "mx_records": [
+     "10 de-smtp-inbound-1.mimecast.com.",
+     "10 de-smtp-inbound-2.mimecast.com."
+    ],
+    "a_records": [
+     "13.32.205.126",
+     "13.32.205.111",
+     "13.32.205.5",
+     "13.32.205.64"
+    ],
+    "http_status": 302,
+    "http_title": null,
+    "note": "Mimecast is an enterprise email-security gateway; this MX pattern plus global CDN A records match a large corporation, not a throwaway domain. asics.com is the global shoe brand ASICS."
+   },
+   "confidence": "high"
+  },
+  {
+   "domain": "biofitstudios.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:30:38+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "20 mx20.antispam.mailspamprotection.com.",
+     "30 mx30.antispam.mailspamprotection.com.",
+     "10 mx10.antispam.mailspamprotection.com."
+    ],
+    "a_records": [
+     "35.215.116.173"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1;p=quarantine;pct=100;rua=mailto:info@biofitstudios.com;ruf=mailto:info@biofitstudios.com;ri=86400;fo=1;"
+    ],
+    "root_txt": [
+     "v=spf1 +a +mx include:biofitstudios.com.spf.auto.dnssmarthost.net ~all"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "Biofit Studios"
     },
-    {
-      "domain": "centraldecomunicacion.es",
-      "claim": "not a disposable/temporary email domain",
-      "provenance": {
-        "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
-        "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
-        "licence": "MIT",
-        "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
-      },
-      "checked_at": "2026-10-07T07:40Z",
-      "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
-      "evidence": {
-        "mx_records": [
-          "0 _dc-mx.f7dff9df8a49.centraldecomunicacion.es."
-        ],
-        "a_records": [
-          "172.67.136.235",
-          "104.21.73.11"
-        ],
-        "http_status": 200,
-        "http_title": "Listados de Empresas con Email y Teléfono | CentraldeComunicacion",
-        "note": "Live commercial site (Spanish B2B directory). Own custom MX host, not a known disposable-mail provider pattern."
-      },
-      "confidence": "high"
+    "triage_signals": [
+     "dmarc-enforcing"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'Biofit Studios'; mail behind mailspamprotection.com filtering MX (paid hosting bundle); enforcing DMARC."
+  },
+  {
+   "domain": "brainonfire.net",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
+    "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
+    "licence": "MIT",
+    "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
+   },
+   "checked_at": "2026-10-07T07:40Z",
+   "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
+   "evidence": {
+    "mx_records": [
+     "10 in1-smtp.messagingengine.com.",
+     "20 in2-smtp.messagingengine.com."
+    ],
+    "a_records": [
+     "208.94.117.101"
+    ],
+    "http_status": 200,
+    "http_title": "Tim McCormack | Brain on Fire",
+    "note": "Live personal site with named author, Fastmail-hosted MX (messagingengine.com). Personal domain, not disposable infrastructure."
+   },
+   "confidence": "high"
+  },
+  {
+   "domain": "centraldecomunicacion.es",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
+    "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
+    "licence": "MIT",
+    "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
+   },
+   "checked_at": "2026-10-07T07:40Z",
+   "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
+   "evidence": {
+    "mx_records": [
+     "0 _dc-mx.f7dff9df8a49.centraldecomunicacion.es."
+    ],
+    "a_records": [
+     "172.67.136.235",
+     "104.21.73.11"
+    ],
+    "http_status": 200,
+    "http_title": "Listados de Empresas con Email y Teléfono | CentraldeComunicacion",
+    "note": "Live commercial site (Spanish B2B directory). Own custom MX host, not a known disposable-mail provider pattern."
+   },
+   "confidence": "high"
+  },
+  {
+   "domain": "chelsworth.net",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:30:59+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "0 mail.chelsworth.net."
+    ],
+    "a_records": [
+     "185.99.254.4"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1; p=none;"
+    ],
+    "root_txt": [
+     "v=spf1 ip4:185.99.254.19 ip4:185.99.254.4 +a +mx +ip4:185.199.220.99 include:relay.k.io ~all"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "Chelsworth | Private Holdings &amp; Advisory Firm in London"
     },
-    {
-      "domain": "e2estudios.com",
-      "claim": "not a disposable/temporary email domain",
-      "provenance": {
-        "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
-        "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
-        "licence": "MIT",
-        "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
-      },
-      "checked_at": "2026-10-07T07:40Z",
-      "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
-      "evidence": {
-        "mx_records": [
-          "0 mx.stackmail.com."
-        ],
-        "a_records": [
-          "172.67.180.163",
-          "104.21.43.150"
-        ],
-        "http_status": 200,
-        "http_title": "Revolutionise Your Business with Custom Software & Web Development Solutions",
-        "note": "Live software agency site, business-grade hosted mail (Stackmail)."
-      },
-      "confidence": "high"
+    "triage_signals": []
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'Chelsworth | Private Holdings & Advisory Firm in London'; own dedicated MX host."
+  },
+  {
+   "domain": "coffeejeans.com.ua",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:30:38+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "10 route1.mx.cloudflare.net.",
+     "42 route3.mx.cloudflare.net.",
+     "26 route2.mx.cloudflare.net."
+    ],
+    "a_records": [
+     "104.21.40.3",
+     "172.67.172.216"
+    ],
+    "dmarc_txt": [],
+    "root_txt": [
+     "v=spf1 include:_spf.mx.cloudflare.net ~all",
+     "google-site-verification=9wTxIUO1hvfsMxYIoVZaJssipAzMOmOccwBMijmniWs"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "Homepage - Shop Audio &#8902; Магазин Кофе"
     },
-    {
-      "domain": "feedspot.com",
-      "claim": "not a disposable/temporary email domain",
-      "provenance": {
-        "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
-        "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
-        "licence": "MIT",
-        "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
-      },
-      "checked_at": "2026-10-07T07:40Z",
-      "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
-      "evidence": {
-        "mx_records": [
-          "1 aspmx.l.google.com.",
-          "5 alt1.aspmx.l.google.com."
-        ],
-        "a_records": [
-          "3.170.103.69",
-          "3.170.103.34",
-          "3.170.103.83",
-          "3.170.103.30"
-        ],
-        "http_status": 200,
-        "http_title": "Feedspot - Read All Your Favorite Websites in one place",
-        "note": "Live, well-known RSS aggregation product with its own named brand."
-      },
-      "confidence": "high"
+    "triage_signals": [
+     "ownership-token:google-site-verification"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'Homepage - Shop Audio / Magazin Kofe'; Cloudflare Email Routing MX; Google ownership token. A working Ukrainian retail shop."
+  },
+  {
+   "domain": "continumail.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot (independent audit, 2026-10-09)",
+    "found_in_our_list": "domains.txt, single-sourced from disposable/disposable-email-domains only (not present in the other 3 upstream sources)",
+    "how_found": "side finding during a tompec/disposable-email-domains#19 contribution run (60-domain DNS sample), re-checked and acted on the next night"
+   },
+   "checked_at": "2026-10-09T07:55Z",
+   "checked_by": "catalystprimeagent-bot (live DNS + HTTP + RDAP, this run)",
+   "evidence": {
+    "mx_records": [
+     "0 continumail-com.mail.protection.outlook.com."
+    ],
+    "a_records": [
+     "216.198.79.1"
+    ],
+    "http_status": 308,
+    "http_title": "Free Thunderbird & mbox to Outlook PST converter | ContinuMail",
+    "note": "www.continumail.com is a live, named, open-source software product (ContinuMail Converter, GitHub org github.com/ContinuMail, named author) with a DMARC p=reject policy and SPF covering both Outlook (business mailbox) and Resend (transactional sender) -- exactly the profile of a small real SaaS, not disposable-mail infrastructure. RDAP shows the domain registered 2026-03-19 via Cloudflare, consistent with a recently launched product."
+   },
+   "confidence": "high"
+  },
+  {
+   "domain": "doitagile.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "multi-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:32:10+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "0 doitagile-com.mail.protection.outlook.com."
+    ],
+    "a_records": [
+     "34.202.63.170"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1; p=quarantine"
+    ],
+    "root_txt": [
+     "U4PQGRs1gxO0pRHQc8TWJP5ckx+Z17uD/qz/EnFf7EI=",
+     "google-site-verification=IBBMg7DvFm2KBWLlGZ4f_-2F3hwdh0HETM87lz8CnYQ",
+     "v=spf1 ip4:54.240.107.187 include:spf.protection.outlook.com -all"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "Do It Agile - Euer Experte für skalierte Agilität"
     },
-    {
-      "domain": "feedspotmailer.com",
-      "claim": "not a disposable/temporary email domain",
-      "provenance": {
-        "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
-        "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
-        "licence": "MIT",
-        "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
-      },
-      "checked_at": "2026-10-07T07:40Z",
-      "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
-      "evidence": {
-        "mx_records": [
-          "100 feedback-smtp.us-east-1.amazonses.com.",
-          "100 us2.mx1.mailhostbox.com.",
-          "100 us2.mx2.mailhostbox.com.",
-          "100 us2.mx3.mailhostbox.com."
-        ],
-        "a_records": [],
-        "http_status": null,
-        "http_title": null,
-        "note": "No web root (expected for a transactional-mail subdomain). MX is a live Amazon SES bounce-handling + MailHostBox record set, not a disposable-domain pattern, and the name matches feedspot.com (verified above) as that company's outbound-mail domain. Confidence held at medium rather than high because we could not independently confirm corporate ownership beyond the name match."
-      },
-      "confidence": "medium"
+    "triage_signals": [
+     "business-mx:microsoft365",
+     "dmarc-enforcing",
+     "ownership-token:google-site-verification"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'Do It Agile - Euer Experte fuer skalierte Agilitaet'; Microsoft 365 tenant MX; enforcing DMARC. A German consultancy's own domain, and it is corroborated by two upstream sources, so multi-sourcing is not a guarantee either."
+  },
+  {
+   "domain": "e2estudios.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
+    "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
+    "licence": "MIT",
+    "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
+   },
+   "checked_at": "2026-10-07T07:40Z",
+   "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
+   "evidence": {
+    "mx_records": [
+     "0 mx.stackmail.com."
+    ],
+    "a_records": [
+     "172.67.180.163",
+     "104.21.43.150"
+    ],
+    "http_status": 200,
+    "http_title": "Revolutionise Your Business with Custom Software & Web Development Solutions",
+    "note": "Live software agency site, business-grade hosted mail (Stackmail)."
+   },
+   "confidence": "high"
+  },
+  {
+   "domain": "edarnell.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:30:38+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "10 mx1.titan.email.",
+     "20 mx2.titan.email."
+    ],
+    "a_records": [
+     "145.223.124.206",
+     "147.79.72.71"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1;p=none;sp=none;adkim=r;aspf=r;pct=100"
+    ],
+    "root_txt": [
+     "v=spf1 a mx include:spf.titan.email include:_spf.mlsend.com ~all",
+     "mailerlite-domain-verification=1d53837dffc8390eecf7823eac7ba4dae665bed8",
+     "google-site-verification=PFy6SUZWcWKtNoCbdSlX9u4DCqHnKllfaq4kImyILo4"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "Investigative Report Writing Training - Darnell Training"
     },
-    {
-      "domain": "forwardemail.net",
-      "claim": "not a disposable/temporary email domain",
-      "provenance": {
-        "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
-        "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
-        "licence": "MIT",
-        "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
-      },
-      "checked_at": "2026-10-07T07:40Z",
-      "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
-      "evidence": {
-        "mx_records": [
-          "0 mx1.forwardemail.net.",
-          "0 mx2.forwardemail.net."
-        ],
-        "a_records": [
-          "121.127.44.69"
-        ],
-        "http_status": 200,
-        "http_title": "Free Email Forwarding for Custom Domains - Open Source Email Service",
-        "note": "Live, named open-source email-forwarding service. Worth flagging for list maintainers generally: a forwarding *service* domain is not itself disposable, even though it forwards other people's mail."
-      },
-      "confidence": "high"
+    "triage_signals": [
+     "ownership-token:google-site-verification"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'Investigative Report Writing Training - Darnell Training'; Titan email MX (paid); Google ownership token. A named individual's training business."
+  },
+  {
+   "domain": "elitecycling.net",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:30:40+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "10 mx1.emailsrvr.com.",
+     "20 mx2.emailsrvr.com."
+    ],
+    "a_records": [
+     "35.224.160.69"
+    ],
+    "dmarc_txt": [],
+    "root_txt": [
+     "google-site-verification=7IUIy6TiWyg1KA7b5TC_9lE_mawFdURNP5TMnmy0bZk",
+     "v=spf1 include:emailsrvr.com ~all"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "Elite Cycling & Fitness | Miami, FL Bike Shop"
     },
-    {
-      "domain": "nus.edu.sg",
-      "claim": "not a disposable/temporary email domain",
-      "provenance": {
-        "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
-        "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
-        "licence": "MIT",
-        "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
-      },
-      "checked_at": "2026-10-07T07:40Z",
-      "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
-      "evidence": {
-        "mx_records": [
-          "10 nus.in.tmes.trendmicro.com."
-        ],
-        "a_records": [
-          "45.60.35.225",
-          "45.60.33.225"
-        ],
-        "http_status": 200,
-        "http_title": null,
-        "note": "National University of Singapore. Live site, enterprise mail-security MX (Trend Micro). edu.sg is also a restricted, institution-only TLD -- any *.edu.sg domain is a structurally low-risk case for a disposable list, not just this one."
-      },
-      "confidence": "high"
+    "triage_signals": [
+     "ownership-token:google-site-verification"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'Elite Cycling & Fitness | Miami, FL Bike Shop'; mail on mx1/mx2.emailsrvr.com (Rackspace, paid per mailbox); Google ownership token. A named local business with a street-level identity."
+  },
+  {
+   "domain": "fayatpartievi.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:31:12+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "10 mt-spamexperts.guzel.net.tr.",
+     "20 ni-spamexperts.guzel.net.tr."
+    ],
+    "a_records": [
+     "104.21.41.134",
+     "172.67.165.4"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1; p=none;"
+    ],
+    "root_txt": [
+     "google-site-verification=9myZDJi_t5NeA7kC5OVONCibxNtZ9Va5l1vu_dc3R_Q",
+     "v=spf1 a mx ip4:178.162.254.32 ip6:2a00:c98:400f:119:1c00:86ff:fe00:167f ~all"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "fayatpartievi.com | Ofis ve İşyerleri Tedariği"
     },
-    {
-      "domain": "purple.dev",
-      "claim": "not a disposable/temporary email domain",
-      "provenance": {
-        "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
-        "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
-        "licence": "MIT",
-        "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
-      },
-      "checked_at": "2026-10-07T07:40Z",
-      "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
-      "evidence": {
-        "mx_records": [
-          "10 s4411.lon1.stableserver.net."
-        ],
-        "a_records": [
-          "209.42.20.152"
-        ],
-        "http_status": 200,
-        "http_title": "Purple Software Development · home",
-        "note": "Live small-business site with a named company, own hosted mail."
-      },
-      "confidence": "high"
+    "triage_signals": [
+     "ownership-token:google-site-verification"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'fayatpartievi.com | Ofis ve Isyerleri Tedarigi'; inbound mail behind SpamExperts gateways (paid filtering); Google ownership token. An office-supply business."
+  },
+  {
+   "domain": "feedspot.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
+    "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
+    "licence": "MIT",
+    "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
+   },
+   "checked_at": "2026-10-07T07:40Z",
+   "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
+   "evidence": {
+    "mx_records": [
+     "1 aspmx.l.google.com.",
+     "5 alt1.aspmx.l.google.com."
+    ],
+    "a_records": [
+     "3.170.103.69",
+     "3.170.103.34",
+     "3.170.103.83",
+     "3.170.103.30"
+    ],
+    "http_status": 200,
+    "http_title": "Feedspot - Read All Your Favorite Websites in one place",
+    "note": "Live, well-known RSS aggregation product with its own named brand."
+   },
+   "confidence": "high"
+  },
+  {
+   "domain": "feedspotmailer.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
+    "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
+    "licence": "MIT",
+    "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
+   },
+   "checked_at": "2026-10-07T07:40Z",
+   "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
+   "evidence": {
+    "mx_records": [
+     "100 feedback-smtp.us-east-1.amazonses.com.",
+     "100 us2.mx1.mailhostbox.com.",
+     "100 us2.mx2.mailhostbox.com.",
+     "100 us2.mx3.mailhostbox.com."
+    ],
+    "a_records": [],
+    "http_status": null,
+    "http_title": null,
+    "note": "No web root (expected for a transactional-mail subdomain). MX is a live Amazon SES bounce-handling + MailHostBox record set, not a disposable-domain pattern, and the name matches feedspot.com (verified above) as that company's outbound-mail domain. Confidence held at medium rather than high because we could not independently confirm corporate ownership beyond the name match."
+   },
+   "confidence": "medium"
+  },
+  {
+   "domain": "forwardemail.net",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
+    "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
+    "licence": "MIT",
+    "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
+   },
+   "checked_at": "2026-10-07T07:40Z",
+   "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
+   "evidence": {
+    "mx_records": [
+     "0 mx1.forwardemail.net.",
+     "0 mx2.forwardemail.net."
+    ],
+    "a_records": [
+     "121.127.44.69"
+    ],
+    "http_status": 200,
+    "http_title": "Free Email Forwarding for Custom Domains - Open Source Email Service",
+    "note": "Live, named open-source email-forwarding service. Worth flagging for list maintainers generally: a forwarding *service* domain is not itself disposable, even though it forwards other people's mail."
+   },
+   "confidence": "high"
+  },
+  {
+   "domain": "frytkibelgijskie.pl",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:30:59+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "10 mail.frytkibelgijskie.pl."
+    ],
+    "a_records": [
+     "185.208.164.76"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1; p=none; sp=none"
+    ],
+    "root_txt": [
+     "v=spf1 a mx include:_spf.cyberfolks.pl -all"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "Frytki Belgijskie w Krakowie - Frytki Belgijskie w Krakowie"
     },
-    {
-      "domain": "ruffrey.com",
-      "claim": "not a disposable/temporary email domain",
-      "provenance": {
-        "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
-        "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
-        "licence": "MIT",
-        "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
-      },
-      "checked_at": "2026-10-07T07:40Z",
-      "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
-      "evidence": {
-        "mx_records": [
-          "10 mx1.privateemail.com.",
-          "10 mx2.privateemail.com."
-        ],
-        "a_records": [],
-        "http_status": null,
-        "http_title": null,
-        "note": "No web root, but a live, functioning business-grade mailbox (Namecheap Private Email). Likely a personal domain used for real correspondence with no public site. Confidence held at medium: mail works, but we have no visual/identity confirmation the way a live website gives."
-      },
-      "confidence": "medium"
+    "triage_signals": []
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'Frytki Belgijskie w Krakowie'; own dedicated MX host. A Krakow food business."
+  },
+  {
+   "domain": "gcbcdiet.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "multi-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:32:08+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "0 mail.gcbcdiet.com."
+    ],
+    "a_records": [
+     "195.250.26.221"
+    ],
+    "dmarc_txt": [],
+    "root_txt": [
+     "v=spf1 +a +mx +ip4:195.250.26.220 include:spf.mysecurecloudhost.com +ip4:195.250.26.221 +include:websitewelcome.com ~all",
+     "google-site-verification=d8F7aB0xMUwKn6ng93xesPKzuY70npJr6lXyPtgS1AYgoogle-site-verification=d8F7aB0xMUwKn6ng93xesPKzuY70npJr6lXyPtgS1AY"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "Good Choice Bad Choice Diet - Quick and Dirty Keto Meal Planning"
     },
-    {
-      "domain": "sibmail.com",
-      "claim": "not a disposable/temporary email domain",
-      "provenance": {
-        "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
-        "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
-        "licence": "MIT",
-        "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
-      },
-      "checked_at": "2026-10-07T07:40Z",
-      "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
-      "evidence": {
-        "mx_records": [],
-        "a_records": [],
-        "http_status": null,
-        "http_title": null,
-        "note": "SERVFAIL on both MX and A tonight (not a timeout -- resolver returned SERVFAIL). We could not independently confirm this domain is currently live. We are keeping it excluded on the strength of the upstream maintainers' manual review alone, not on our own evidence. Flagging this explicitly rather than claiming verification we do not have."
-      },
-      "confidence": "low (unverifiable tonight, relying on upstream review only)"
+    "triage_signals": [
+     "ownership-token:google-site-verification"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'Good Choice Bad Choice Diet - Quick and Dirty Keto Meal Pl...'; own dedicated MX host; Google ownership token. A real product site."
+  },
+  {
+   "domain": "gesdonerkebap.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:31:24+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "10 mt-spamexperts.guzel.net.tr.",
+     "40 pmg2.guzel.net.tr.",
+     "20 ni-spamexperts.guzel.net.tr.",
+     "30 pmg.guzel.net.tr."
+    ],
+    "a_records": [
+     "149.86.138.37"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1; p=quarantine; adkim=s; aspf=s"
+    ],
+    "root_txt": [
+     "v=spf1 a mx include:relay.guzelhosting.com ~all"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "GES DONER KEBAP PRODUCTION"
     },
-    {
-      "domain": "xwaretech.com",
-      "claim": "not a disposable/temporary email domain",
-      "provenance": {
-        "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
-        "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
-        "licence": "MIT",
-        "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
-      },
-      "checked_at": "2026-10-07T07:40Z",
-      "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
-      "evidence": {
-        "mx_records": [
-          "10 us1-smtp.messagingengine.com.",
-          "20 us2-smtp.messagingengine.com."
-        ],
-        "a_records": [
-          "138.197.33.87"
-        ],
-        "http_status": 200,
-        "http_title": "XWARETECH – Solve For X.",
-        "note": "Live company site, Fastmail-hosted MX."
-      },
-      "confidence": "high"
+    "triage_signals": [
+     "dmarc-enforcing"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'GES DONER KEBAP PRODUCTION'; inbound mail behind SpamExperts gateways at guzel.net.tr (paid filtering); enforcing DMARC. A food manufacturer."
+  },
+  {
+   "domain": "grad.bryant.edu",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot (independent audit, 2026-10-09)",
+    "found_in_our_list": "domains.txt, single-sourced from disposable/disposable-email-domains only",
+    "how_found": "cheap sweep for entries ending .edu/.edu.*/.ac.*/.gov* (329 hits in the merged list); this was in a random 15-domain hand-verified sample from that screen"
+   },
+   "checked_at": "2026-10-09T08:00Z",
+   "checked_by": "catalystprimeagent-bot (live DNS, this run)",
+   "evidence": {
+    "mx_records": [
+     "10 aspmx.l.google.com.",
+     "20 alt1.aspmx.l.google.com.",
+     "30 alt2.aspmx.l.google.com."
+    ],
+    "a_records": [],
+    "http_status": null,
+    "http_title": null,
+    "note": "Live Google Workspace MX for a subdomain of bryant.edu. Plain .edu is EDUCAUSE-restricted to accredited US postsecondary institutions, so a real, functioning subdomain of a named accredited university (Bryant University) with live mail is strong evidence against disposable use. No independent HTTP confirmation (subdomain has no web root), held at high rather than certain for that reason."
+   },
+   "confidence": "high"
+  },
+  {
+   "domain": "heidithorsen.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:30:45+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "10 mx2.hostinger.com.",
+     "5 mx1.hostinger.com."
+    ],
+    "a_records": [
+     "147.79.72.205",
+     "147.79.79.159"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1; p=none"
+    ],
+    "root_txt": [
+     "v=spf1 include:_spf.mail.hostinger.com ~all"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "Heidi Thorsen, CZT | Zentangle Teacher in Crozet, Virginia | Heidi Thorsen"
     },
-    {
-      "domain": "xwaretech.info",
-      "claim": "not a disposable/temporary email domain",
-      "provenance": {
-        "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
-        "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
-        "licence": "MIT",
-        "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
-      },
-      "checked_at": "2026-10-07T07:40Z",
-      "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
-      "evidence": {
-        "mx_records": [
-          "10 in1-smtp.messagingengine.com.",
-          "20 in2-smtp.messagingengine.com."
-        ],
-        "a_records": [
-          "174.57.28.35"
-        ],
-        "http_status": 200,
-        "http_title": "Index of /",
-        "note": "Live server, same mail provider as xwaretech.com and xwaretech.net (one operator's domain family). No content on the web root beyond a directory index, but the MX is real and shared with the verified sibling domain."
-      },
-      "confidence": "medium"
+    "triage_signals": []
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'Heidi Thorsen, CZT | Zentangle Teacher in Crozet, Virginia'; Hostinger business-mail MX (paid). A named individual's professional domain."
+  },
+  {
+   "domain": "heightsdentalsmiles.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:31:22+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "100 us2.mx1.mailhostbox.com.",
+     "100 us2.mx2.mailhostbox.com.",
+     "100 us2.mx3.mailhostbox.com."
+    ],
+    "a_records": [
+     "199.79.62.228"
+    ],
+    "dmarc_txt": [],
+    "root_txt": [
+     "v=spf1 ip4:162.215.252.164 ip4:207.174.213.94 redirect=_spf.mailhostbox.com"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "Heights Dental Smiles &#8211; Heights Dental Smiles offers a full array of dental services to help you maintain healthy teeth."
     },
-    {
-      "domain": "xwaretech.net",
-      "claim": "not a disposable/temporary email domain",
-      "provenance": {
-        "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
-        "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
-        "licence": "MIT",
-        "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
-      },
-      "checked_at": "2026-10-07T07:40Z",
-      "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
-      "evidence": {
-        "mx_records": [
-          "20 in2-smtp.messagingengine.com.",
-          "10 in1-smtp.messagingengine.com."
-        ],
-        "a_records": [
-          "37.27.69.159"
-        ],
-        "http_status": 200,
-        "http_title": null,
-        "note": "Same operator's domain family as xwaretech.com (verified above), same Fastmail MX."
-      },
-      "confidence": "medium"
+    "triage_signals": []
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'Heights Dental Smiles - Heights Dental Smiles offers a full array'; mail on us2.mailhostbox.com (paid business mail). A dental practice."
+  },
+  {
+   "domain": "kangu24.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:31:16+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "10 s158.cyber-folks.pl."
+    ],
+    "a_records": [
+     "216.150.1.1"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1;p=quarantine;sp=none;adkim=r;aspf=r;pct=100;fo=0;rf=afrf;ri=86400"
+    ],
+    "root_txt": [
+     "o=~",
+     "facebook-domain-verification=tyus8r0ach5p3t22afpfki75g702ai",
+     "google-site-verification=gEeKLjjDqVhy1fnN7u2R-N0k9l189N46XiyQwK6wfVg",
+     "google-site-verification=gmAA3UHl6heTr4M0UMotzBcFlpM6dB52dTbpfsZ_Xm8",
+     "4gbwscbs1hpd052ykmdz6f5kk90d6t3x",
+     "v=spf1 include:_spf.cyberfolks.pl ~all",
+     "gytb84920cvbxv38z7xq9t6m8rrrs9r3",
+     "MS=ms61022517"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "Self Storage, Magazyny do wynajęcia | Kangu24"
     },
-    {
-      "domain": "xwaretech.tk",
-      "claim": "disputed -- evidence tonight does not support this",
-      "provenance": {
-        "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
-        "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
-        "licence": "MIT",
-        "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
-      },
-      "checked_at": "2026-10-07T07:40Z",
-      "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
-      "evidence": {
-        "mx_records": [],
-        "a_records": [],
-        "http_status": null,
-        "http_title": null,
-        "note": "NXDOMAIN at the .tk zone tonight: this domain does not currently exist. It appears to be a defunct extra domain from the same operator as xwaretech.com/.net/.info (same brand name), registered on Freenom's free .tk TLD, since expired. We kept it in our exclusion set because the upstream maintainers still list it, but we are not claiming independent evidence it is a live false positive -- an unregistered domain cannot presently be either disposable or legitimate. Recorded honestly rather than silently dropped, so nobody mistakes its presence here for a live-site check."
-      },
-      "confidence": "none (domain does not currently resolve; included only because upstream still lists it)"
+    "triage_signals": [
+     "dmarc-enforcing",
+     "ownership-token:google-site-verification",
+     "ownership-token:ms=ms",
+     "ownership-token:facebook-domain-verification"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'Self Storage, Magazyny do wynajecia | Kangu24'; mail on s158.cyber-folks.pl (paid Polish host); enforcing DMARC; Google ownership token."
+  },
+  {
+   "domain": "mail3x.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot (independent audit, 2026-10-09)",
+    "found_in_our_list": "domains.txt, present in 2 of 4 upstream sources (disposable/disposable-email-domains and FGRibreau/mailchecker)",
+    "how_found": "same side finding as continumail.com, above"
+   },
+   "checked_at": "2026-10-09T07:55Z",
+   "checked_by": "catalystprimeagent-bot (live DNS + HTTP + RDAP, this run)",
+   "evidence": {
+    "mx_records": [
+     "10 mx01.mail.icloud.com.",
+     "10 mx02.mail.icloud.com."
+    ],
+    "a_records": [
+     "172.67.198.107",
+     "104.21.60.167"
+    ],
+    "http_status": 526,
+    "http_title": null,
+    "note": "TXT records include an apple-domain= verification token and `v=spf1 include:icloud.com ~all` -- this is Apple's Custom Email Domain feature for iCloud Mail, which requires per-domain ownership verification through Apple before activation. That friction is a real signal against mass disposable-domain use. The website itself returns 526 (origin TLS failure through Cloudflare), so we could not confirm what the domain is actually used for day to day -- held at medium confidence rather than high because of that gap, not rounded up."
+   },
+   "confidence": "medium"
+  },
+  {
+   "domain": "medha.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:30:47+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "5 hostmx01.logix.in.",
+     "10 hostmx02.logix.in."
+    ],
+    "a_records": [
+     "134.199.175.85"
+    ],
+    "dmarc_txt": [],
+    "root_txt": [
+     "anthropic-domain-verification-xsh5t5=saMvxxNa9NZ7b6khPgSe7DoZM",
+     "v=spf1 include:_spf.medha_com._d.easydmarc.pro -all",
+     "amazonses:eqTqMdA4P7LaysDjsAdfQ6/Tlwq61RSTN7pc7eiQG6I=",
+     "amazonses:3xwDhzgbVeJfefPe4faMiWlVlxlCkUT9G0yswxPvglo=",
+     "google-site-verification=9nlU8hgc6IrbNs0Goe6GJQMafVsIsZ9ZKFPZP9JEwuQ",
+     "amazonses:dol4WKyHEywN4BoHL7j7UZgmQjfxCQo5hJo0hAJa/jg="
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "MEDHA - Powering Mobility"
     },
-    {
-      "domain": "continumail.com",
-      "claim": "not a disposable/temporary email domain",
-      "provenance": {
-        "originally_removed_by": "catalystprimeagent-bot (independent audit, 2026-10-09)",
-        "found_in_our_list": "domains.txt, single-sourced from disposable/disposable-email-domains only (not present in the other 3 upstream sources)",
-        "how_found": "side finding during a tompec/disposable-email-domains#19 contribution run (60-domain DNS sample), re-checked and acted on the next night"
-      },
-      "checked_at": "2026-10-09T07:55Z",
-      "checked_by": "catalystprimeagent-bot (live DNS + HTTP + RDAP, this run)",
-      "evidence": {
-        "mx_records": ["0 continumail-com.mail.protection.outlook.com."],
-        "a_records": ["216.198.79.1"],
-        "http_status": 308,
-        "http_title": "Free Thunderbird & mbox to Outlook PST converter | ContinuMail",
-        "note": "www.continumail.com is a live, named, open-source software product (ContinuMail Converter, GitHub org github.com/ContinuMail, named author) with a DMARC p=reject policy and SPF covering both Outlook (business mailbox) and Resend (transactional sender) -- exactly the profile of a small real SaaS, not disposable-mail infrastructure. RDAP shows the domain registered 2026-03-19 via Cloudflare, consistent with a recently launched product."
-      },
-      "confidence": "high"
+    "triage_signals": [
+     "ownership-token:google-site-verification"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'MEDHA - Powering Mobility'; mail on hostmx01/02.logix.in (paid Indian business-mail host); Google site-verification token. A rail-technology manufacturer's own domain."
+  },
+  {
+   "domain": "mey.com.tr",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:30:50+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "0 mey-com-tr.mail.protection.outlook.com."
+    ],
+    "a_records": [
+     "104.21.47.41",
+     "172.67.144.112"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1; p=reject; rua=mailto:dmarc_agg@vali.email"
+    ],
+    "root_txt": [
+     "D0I0A16963",
+     "B4d4rOiNjDvYEmZiYPzw9adfRPn1PKbsEAUqCAFsG7n3F4t07GdX6m6XUF+F1WJEEdu5XA6pfYhOWuZwEHw42g==",
+     "globalsign-domain-verification=alQSjeNe7FxjTn62xDHd1oJgYm_4THxTC4tvy9AeHX",
+     "MS=ms52087148",
+     "globalsign-domain-verification=cSG_6D0yr1H2ety4VNatYlS-2jSVoKLqNSkTpOZb9C",
+     "google-site-verification=E2JYQHee_mM4bJRLeXkIOhXrZmbzPQ8gKZMho8bhP_Q",
+     "MS=E9FA0B7470A8F49ED9342BAAD6D8973AF1CF7494",
+     "Y0nPDHGjQM9gEK3XQNNm5z/ANOjdjSAGh+RX1DtW0E8=",
+     "globalsign-domain-verification=7otpgUSbl2yS194vHNlUbXSwmLuDLJ54SUOiQi2KhO",
+     "v=spf1 a mx ip4:91.93.89.192/26 include:spf.protection.outlook.com include:spf-00360401.pphosted.com ~all"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "Diageo Türkiye"
     },
-    {
-      "domain": "mail3x.com",
-      "claim": "not a disposable/temporary email domain",
-      "provenance": {
-        "originally_removed_by": "catalystprimeagent-bot (independent audit, 2026-10-09)",
-        "found_in_our_list": "domains.txt, present in 2 of 4 upstream sources (disposable/disposable-email-domains and FGRibreau/mailchecker)",
-        "how_found": "same side finding as continumail.com, above"
-      },
-      "checked_at": "2026-10-09T07:55Z",
-      "checked_by": "catalystprimeagent-bot (live DNS + HTTP + RDAP, this run)",
-      "evidence": {
-        "mx_records": ["10 mx01.mail.icloud.com.", "10 mx02.mail.icloud.com."],
-        "a_records": ["172.67.198.107", "104.21.60.167"],
-        "http_status": 526,
-        "http_title": null,
-        "note": "TXT records include an apple-domain= verification token and `v=spf1 include:icloud.com ~all` -- this is Apple's Custom Email Domain feature for iCloud Mail, which requires per-domain ownership verification through Apple before activation. That friction is a real signal against mass disposable-domain use. The website itself returns 526 (origin TLS failure through Cloudflare), so we could not confirm what the domain is actually used for day to day -- held at medium confidence rather than high because of that gap, not rounded up."
-      },
-      "confidence": "medium"
+    "triage_signals": [
+     "business-mx:microsoft365",
+     "dmarc-enforcing",
+     "ownership-token:google-site-verification",
+     "ownership-token:ms=ms"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'Diageo Turkiye'; Microsoft 365 tenant MX (mey-com-tr.mail.protection.outlook.com); enforcing DMARC; Microsoft ownership token. Corporate domain of a drinks manufacturer."
+  },
+  {
+   "domain": "novibet.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:30:55+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "5 alt2.aspmx.l.google.com.",
+     "10 alt4.aspmx.l.google.com.",
+     "0 aspmx.l.google.com.",
+     "15 smtp.europe.secureserver.net.",
+     "5 alt1.aspmx.l.google.com.",
+     "20 mailstore1.europe.secureserver.net.",
+     "10 alt3.aspmx.l.google.com."
+    ],
+    "a_records": [
+     "172.64.147.184",
+     "104.18.40.72"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1; p=none; sp=none; rua=mailto:dmarc@novibet.com;"
+    ],
+    "root_txt": [
+     "google-site-verification=W0K-88KwO_RhmnbCyZd0pTvf0vIm-SZIn6W4wG8OjGY",
+     "slack-domain-verification=vCPBAeKL1yEWBzQyKpwataZweMnG4dCxi4q8vwEQ",
+     "figma-domain-verification=8d5bc5ebdb18f73f02ab71623cf2d47b99042fb4eb736189024d3d25eccd4ac9-1752819642",
+     "atlassian-domain-verification=anlUp5ssXPhTxBoKNO9GNpL72M/aWj/9sVyZrq9nN0VP6wNaDNyKDJ1T82d61GsR",
+     "33xn3z78p9t5yvcp547qyg0ncqpbv0z3",
+     "ca3-a9d0090ec66d4c0b8c5cba170d188392",
+     "MS=83EE7AF226CD471990EDFF6DFBBFEDEF8927E04E",
+     "gamma-domain-verification-1afrer=WfJcjRJ9WhhNraVzoyjfs3MN9",
+     "facebook-domain-verification=xvq97a6lljwzxk2309fppekii2fcop",
+     "MS=ms94362690"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 403,
+     "title": ""
     },
-    {
-      "domain": "grad.bryant.edu",
-      "claim": "not a disposable/temporary email domain",
-      "provenance": {
-        "originally_removed_by": "catalystprimeagent-bot (independent audit, 2026-10-09)",
-        "found_in_our_list": "domains.txt, single-sourced from disposable/disposable-email-domains only",
-        "how_found": "cheap sweep for entries ending .edu/.edu.*/.ac.*/.gov* (329 hits in the merged list); this was in a random 15-domain hand-verified sample from that screen"
-      },
-      "checked_at": "2026-10-09T08:00Z",
-      "checked_by": "catalystprimeagent-bot (live DNS, this run)",
-      "evidence": {
-        "mx_records": ["10 aspmx.l.google.com.", "20 alt1.aspmx.l.google.com.", "30 alt2.aspmx.l.google.com."],
-        "a_records": [],
-        "http_status": null,
-        "http_title": null,
-        "note": "Live Google Workspace MX for a subdomain of bryant.edu. Plain .edu is EDUCAUSE-restricted to accredited US postsecondary institutions, so a real, functioning subdomain of a named accredited university (Bryant University) with live mail is strong evidence against disposable use. No independent HTTP confirmation (subdomain has no web root), held at high rather than certain for that reason."
-      },
-      "confidence": "high"
-    }
-  ]
+    "triage_signals": [
+     "business-mx:google",
+     "ownership-token:google-site-verification",
+     "ownership-token:ms=ms",
+     "ownership-token:facebook-domain-verification",
+     "ownership-token:atlassian-domain-verification"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "Google Workspace MX, enforcing DMARC, Google ownership token; web root 403 (geographic block, not absence). A licensed betting operator's corporate domain, not a mailbox provider."
+  },
+  {
+   "domain": "nus.edu.sg",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
+    "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
+    "licence": "MIT",
+    "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
+   },
+   "checked_at": "2026-10-07T07:40Z",
+   "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
+   "evidence": {
+    "mx_records": [
+     "10 nus.in.tmes.trendmicro.com."
+    ],
+    "a_records": [
+     "45.60.35.225",
+     "45.60.33.225"
+    ],
+    "http_status": 200,
+    "http_title": null,
+    "note": "National University of Singapore. Live site, enterprise mail-security MX (Trend Micro). edu.sg is also a restricted, institution-only TLD -- any *.edu.sg domain is a structurally low-risk case for a disposable list, not just this one."
+   },
+   "confidence": "high"
+  },
+  {
+   "domain": "oilsandherbs.co.uk",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:30:40+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "20 mx2.zoho.eu.",
+     "30 mx3.zoho.eu.",
+     "10 mx.zoho.eu."
+    ],
+    "a_records": [
+     "87.106.199.47"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1; p=none;"
+    ],
+    "root_txt": [
+     "brevo-code:8cc3859f067fef565ca019510ea94a3a",
+     "v=spf1 include:zohomail.eu include:zoho.in include:spf.retainful.net ~all"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "Buy Herbs &amp; Natural Supplements | Oils and Herbs UK"
+    },
+    "triage_signals": [
+     "business-mx:zoho"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'Buy Herbs & Natural Supplements | Oils and Herbs UK'; Zoho Mail MX (paid per mailbox). A working e-commerce shop."
+  },
+  {
+   "domain": "onegroupconsultoria.com.br",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:31:01+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "10 mx.stackmail.com."
+    ],
+    "a_records": [
+     "204.69.207.1"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1; p=none; rua=mailto:dmarc@onegroupconsultoria.com.br; ruf=mailto:dmarc@onegroupconsultoria.com.br; rf=afrf; pct=100"
+    ],
+    "root_txt": [
+     "google-site-verification=6Pi_DtTttCEMc5upDG1RK0Z6AqRk67xChjAOm6AEPrc",
+     "v=spf1 include:spf.stackmail.com a mx -all"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "OneGroup — Ecossistema de Soluções Empresariais | Diagnóstico 360"
+    },
+    "triage_signals": [
+     "ownership-token:google-site-verification"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'OneGroup - Ecossistema de Solucoes Empresariais'; mail on mx.stackmail.com (paid business mail); Google ownership token. A Brazilian consultancy."
+  },
+  {
+   "domain": "ppz.pl",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "multi-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:31:56+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "10 fsmg3.ppz-trzemeszno.com.pl."
+    ],
+    "a_records": [
+     "91.236.131.16"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1; p=none; sp=none; rua=mailto:spam-reports@microhost.pl"
+    ],
+    "root_txt": [
+     "v=spf1 a mx ip4:188.210.221.86 ip4:195.117.196.31 ip4:195.117.196.70 ip4:185.72.198.187 ~all"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "Przedsiębiorstwo Przemysłu Ziemniaczanego Trzemeszno &#8211; Produkujemy Skrobię Ziemniaczaną Od 130 lat"
+    },
+    "triage_signals": []
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'Przedsiebiorstwo Przemyslu Ziemniaczanego Trzemeszno'; inbound mail on the company's own fsmg3.ppz-trzemeszno.com.pl host. An operating Polish manufacturer."
+  },
+  {
+   "domain": "purple.dev",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
+    "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
+    "licence": "MIT",
+    "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
+   },
+   "checked_at": "2026-10-07T07:40Z",
+   "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
+   "evidence": {
+    "mx_records": [
+     "10 s4411.lon1.stableserver.net."
+    ],
+    "a_records": [
+     "209.42.20.152"
+    ],
+    "http_status": 200,
+    "http_title": "Purple Software Development · home",
+    "note": "Live small-business site with a named company, own hosted mail."
+   },
+   "confidence": "high"
+  },
+  {
+   "domain": "roastersmap.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:30:40+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "10 mx1.titan.email.",
+     "20 mx2.titan.email."
+    ],
+    "a_records": [
+     "172.67.165.232",
+     "104.21.41.172"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1; p=quarantine; fo=1; rua=mailto:info@roastersmap.com"
+    ],
+    "root_txt": [
+     "v=spf1 include:spf.titan.email include:spf.brevo.com ~all",
+     "brevo-code:283563ebfaa64f770c1aa227c0336159",
+     "google-site-verification=Mi1HaFdMHY7zm2S5PUIveTGoERHsnQ5ZjE11vrwxf-Y"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "Mapping America&#039;s Finest Coffee Roasters | Roasters Map"
+    },
+    "triage_signals": [
+     "dmarc-enforcing",
+     "ownership-token:google-site-verification"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled \"Mapping America's Finest Coffee Roasters | Roasters Map\"; Titan email MX (paid per mailbox); enforcing DMARC; Google ownership token."
+  },
+  {
+   "domain": "ruffrey.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
+    "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
+    "licence": "MIT",
+    "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
+   },
+   "checked_at": "2026-10-07T07:40Z",
+   "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
+   "evidence": {
+    "mx_records": [
+     "10 mx1.privateemail.com.",
+     "10 mx2.privateemail.com."
+    ],
+    "a_records": [],
+    "http_status": null,
+    "http_title": null,
+    "note": "No web root, but a live, functioning business-grade mailbox (Namecheap Private Email). Likely a personal domain used for real correspondence with no public site. Confidence held at medium: mail works, but we have no visual/identity confirmation the way a live website gives."
+   },
+   "confidence": "medium"
+  },
+  {
+   "domain": "sakuracare.be",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:30:50+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "20 mx2.titan.email.",
+     "10 mx1.titan.email."
+    ],
+    "a_records": [
+     "69.46.46.52"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com"
+    ],
+    "root_txt": [
+     "google-site-verification=lIVzMTGe-uobIpqtYx8DrhYmDBRe46hK4oqOaJtOFuA",
+     "brevo-code:c44e0c9b6532cafabb8fa375f2700049",
+     "v=spf1 include:spf.titan.email ~all",
+     "facebook-domain-verification=g7mr3mdk5uw1s2jvo8jdrphz6o4n9r"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "Sakura Care | Institut de Beauté Japonais à Bruxelles | Soins Visage et Laser"
+    },
+    "triage_signals": [
+     "ownership-token:google-site-verification",
+     "ownership-token:facebook-domain-verification"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'Sakura Care | Institut de Beaute Japonais a Bruxelles'; Titan email MX (paid); Google AND Facebook domain-ownership tokens. A Brussels beauty salon."
+  },
+  {
+   "domain": "sibmail.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
+    "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
+    "licence": "MIT",
+    "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
+   },
+   "checked_at": "2026-10-07T07:40Z",
+   "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
+   "evidence": {
+    "mx_records": [],
+    "a_records": [],
+    "http_status": null,
+    "http_title": null,
+    "note": "SERVFAIL on both MX and A tonight (not a timeout -- resolver returned SERVFAIL). We could not independently confirm this domain is currently live. We are keeping it excluded on the strength of the upstream maintainers' manual review alone, not on our own evidence. Flagging this explicitly rather than claiming verification we do not have."
+   },
+   "confidence": "low (unverifiable tonight, relying on upstream review only)"
+  },
+  {
+   "domain": "silvertigerconsulting.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:30:41+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "20 mx2.emailsrvr.com.",
+     "10 mx1.emailsrvr.com."
+    ],
+    "a_records": [
+     "185.230.63.107"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1; p=reject; rua=mailto:cori@silvertigerconstruction.com"
+    ],
+    "root_txt": [
+     "v=spf1 include:emailsrvr.com ~all"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "Silver Tiger Consulting | Wakefield, MA"
+    },
+    "triage_signals": [
+     "dmarc-enforcing"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'Silver Tiger Consulting | Wakefield, MA'; Rackspace emailsrvr MX (paid); enforcing DMARC."
+  },
+  {
+   "domain": "studenttimes.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:30:55+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "0 mx3-usg1.ppe-hosted.com.",
+     "0 mx2-usg1.ppe-hosted.com.",
+     "0 mx1-usg1.ppe-hosted.com."
+    ],
+    "a_records": [
+     "107.180.113.244"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1; p=none; pct=100; rua=mailto:us@studenttimes.com"
+    ],
+    "root_txt": [
+     "v=spf1 include:_spf-usg1.ppe-hosted.com include:secureserver.net include:zcsend.ca include:one.zoho.com ~all",
+     "NETORGFT5328713.onmicrosoft.com",
+     "v=verifydomain MS=1459922",
+     "google-site-verification=dJ7QFyhot3diRYXCb10Edy-Xk95xEkg_ciUsCjjwysw"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "Home &#8211; Studenttimes Staffing Solutions"
+    },
+    "triage_signals": [
+     "gateway-mx:proofpoint",
+     "ownership-token:google-site-verification"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'Home - Studenttimes Staffing Solutions'; inbound mail on Proofpoint (enterprise gateway, paid); Google ownership token."
+  },
+  {
+   "domain": "texasturbine.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:30:58+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "100 us2.mx1.mailhostbox.com.",
+     "100 us2.mx2.mailhostbox.com.",
+     "100 us2.mx3.mailhostbox.com."
+    ],
+    "a_records": [
+     "162.215.226.3"
+    ],
+    "dmarc_txt": [],
+    "root_txt": [
+     "v=spf1 redirect=_spf.mailhostbox.com"
+    ],
+    "http": {
+     "scheme": "http",
+     "status": 200,
+     "title": "Texas Turbine, Inc."
+    },
+    "triage_signals": []
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'Texas Turbine, Inc.'; mail on us2.mx1/mx2.mailhostbox.com (paid business mail)."
+  },
+  {
+   "domain": "tmfin.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:31:27+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "0 tmfin-com.mail.protection.outlook.com."
+    ],
+    "a_records": [
+     "150.171.109.74"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1;p=quarantine;rua=mailto:postmaster@tmfin.com"
+    ],
+    "root_txt": [
+     "MS=ms85767709",
+     "v=spf1 include:spf.protection.outlook.com include:webbycards.com ip4:38.88.213.162 ip4:173.9.200.17 ip4:38.98.56.234 ip4:173.196.133.42 ip4:45.19.218.161 ip4:50.76.52.145 ip4:173.164.226.185 ip4:75.61.99.113 -all"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "HKA | Risk Mitigation, Dispute Resolution, Litigation Support |"
+    },
+    "triage_signals": [
+     "business-mx:microsoft365",
+     "dmarc-enforcing",
+     "ownership-token:ms=ms"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "Live 200 titled 'HKA | Risk Mitigation, Dispute Resolution, Litigation Support'; Microsoft 365 tenant MX; enforcing DMARC; Microsoft ownership token. A consultancy's own domain."
+  },
+  {
+   "domain": "ufginsurance.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "catalystprimeagent-bot, own random-sample audit",
+    "audit": "audit/sample-2026-10-09-rows.json + sample-2026-10-09-verdicts.json",
+    "method": "stratified random sample of the published list, seed 20261009, n=300 per tranche",
+    "upstream_corroboration": "single-source tranche",
+    "found_in_our_list": "domains.txt as published on 2026-10-09"
+   },
+   "checked_at": "2026-10-09T11:31:26+00:00",
+   "checked_by": "catalystprimeagent-bot (live DNS-over-HTTPS + HTTP, audit run)",
+   "evidence": {
+    "mx_records": [
+     "10 us-smtp-inbound-2.mimecast.com.",
+     "10 us-smtp-inbound-1.mimecast.com."
+    ],
+    "a_records": [
+     "72.50.229.53"
+    ],
+    "dmarc_txt": [
+     "v=DMARC1; p=reject; rua=mailto:f7b21f6759f9727@rep.dmarcanalyzer.com; ruf=mailto:f7b21f6759f9727@for.dmarcanalyzer.com; fo=1;"
+    ],
+    "root_txt": [
+     "MS=ms89933405",
+     "spf2.0/pra a:mail.unitedfiregroup.com ip4:72.50.229.1 ip4:72.50.229.11 ip4:198.167.181.133 ip4:172.214.67.207 ip4:4.236.81.254 ip4:74.179.243.94 include:us._netblocks.mimecast.com include:spf.protection.outlook.com include:_spf.atlassian.net include:spf.constantcontact.com include:_spf.ultipro.com include:spf-us.csodmail.com include:amazonses.com -all",
+     "atlassian-sending-domain-verification=a891b0a2-0397-46b1-b21e-a743fbd80851",
+     "v=spf1 a:mail.unitedfiregroup.com ip4:72.50.229.1 ip4:72.50.229.11 ip4:198.167.181.133 ip4:172.214.67.207 ip4:4.236.81.254 ip4:74.179.243.94 include:us._netblocks.mimecast.com include:spf.protection.outlook.com include:_spf.atlassian.net include:spf.constantcontact.com include:_spf.ultipro.com include:spf-us.csodmail.com include:amazonses.com -all",
+     "ms-domain-verification=7eefdf8f-3812-468c-a1ed-b358f032020f"
+    ],
+    "http": {
+     "scheme": "https",
+     "status": 200,
+     "title": "UFG Insurance | Business insurance, excess and surplus, surety bonds, reinsurance"
+    },
+    "triage_signals": [
+     "gateway-mx:mimecast",
+     "dmarc-enforcing",
+     "ownership-token:ms=ms"
+    ]
+   },
+   "confidence": "high",
+   "reasoning": "UFG Insurance, a US commercial insurer. Live 200 titled 'UFG Insurance | Business insurance, excess and surplus, surety'; inbound mail on Mimecast (enterprise gateway, paid per seat); enforcing DMARC; Microsoft domain-ownership token. Blocking this domain blocks an insurer's own correspondence."
+  },
+  {
+   "domain": "xwaretech.com",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
+    "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
+    "licence": "MIT",
+    "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
+   },
+   "checked_at": "2026-10-07T07:40Z",
+   "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
+   "evidence": {
+    "mx_records": [
+     "10 us1-smtp.messagingengine.com.",
+     "20 us2-smtp.messagingengine.com."
+    ],
+    "a_records": [
+     "138.197.33.87"
+    ],
+    "http_status": 200,
+    "http_title": "XWARETECH – Solve For X.",
+    "note": "Live company site, Fastmail-hosted MX."
+   },
+   "confidence": "high"
+  },
+  {
+   "domain": "xwaretech.info",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
+    "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
+    "licence": "MIT",
+    "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
+   },
+   "checked_at": "2026-10-07T07:40Z",
+   "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
+   "evidence": {
+    "mx_records": [
+     "10 in1-smtp.messagingengine.com.",
+     "20 in2-smtp.messagingengine.com."
+    ],
+    "a_records": [
+     "174.57.28.35"
+    ],
+    "http_status": 200,
+    "http_title": "Index of /",
+    "note": "Live server, same mail provider as xwaretech.com and xwaretech.net (one operator's domain family). No content on the web root beyond a directory index, but the MX is real and shared with the verified sibling domain."
+   },
+   "confidence": "medium"
+  },
+  {
+   "domain": "xwaretech.net",
+   "claim": "not a disposable/temporary email domain",
+   "provenance": {
+    "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
+    "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
+    "licence": "MIT",
+    "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
+   },
+   "checked_at": "2026-10-07T07:40Z",
+   "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
+   "evidence": {
+    "mx_records": [
+     "20 in2-smtp.messagingengine.com.",
+     "10 in1-smtp.messagingengine.com."
+    ],
+    "a_records": [
+     "37.27.69.159"
+    ],
+    "http_status": 200,
+    "http_title": null,
+    "note": "Same operator's domain family as xwaretech.com (verified above), same Fastmail MX."
+   },
+   "confidence": "medium"
+  },
+  {
+   "domain": "xwaretech.tk",
+   "claim": "disputed -- evidence tonight does not support this",
+   "provenance": {
+    "originally_removed_by": "disposable/disposable maintainers, whitelist.txt",
+    "whitelist_source_url": "https://github.com/disposable/disposable/blob/master/whitelist.txt",
+    "licence": "MIT",
+    "found_in_our_list": "domains.txt prior to commit 65f52ab (2026-10-05)"
+   },
+   "checked_at": "2026-10-07T07:40Z",
+   "checked_by": "catalystprimeagent-bot (live DNS + HTTP, this run)",
+   "evidence": {
+    "mx_records": [],
+    "a_records": [],
+    "http_status": null,
+    "http_title": null,
+    "note": "NXDOMAIN at the .tk zone tonight: this domain does not currently exist. It appears to be a defunct extra domain from the same operator as xwaretech.com/.net/.info (same brand name), registered on Freenom's free .tk TLD, since expired. We kept it in our exclusion set because the upstream maintainers still list it, but we are not claiming independent evidence it is a live false positive -- an unregistered domain cannot presently be either disposable or legitimate. Recorded honestly rather than silently dropped, so nobody mistakes its presence here for a live-site check."
+   },
+   "confidence": "none (domain does not currently resolve; included only because upstream still lists it)"
+  }
+ ]
 }
