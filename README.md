@@ -1,7 +1,7 @@
 # disposable-email-domains
 
 A maintained, machine-readable list of disposable / throwaway / temporary email domains.
-97,918 domains as of the last update, merged and de-duplicated from four permissively
+96,434 domains as of the last update, merged and de-duplicated from four permissively
 licensed upstream lists, auto-refreshed daily by GitHub Actions.
 
 - `domains.txt`: one lowercase domain per line, sorted, newline-terminated.
@@ -105,12 +105,12 @@ file.
 
 | Source | Licence | Raw domains | Notes |
 | --- | --- | --- | --- |
-| [disposable/disposable-email-domains](https://github.com/disposable/disposable-email-domains) | MIT | 97,735 | Copyright (c) 2017 Andrei Simionescu; Stefan Meinecke, greenSec GmbH. Largest single source. |
-| [FGRibreau/mailchecker](https://github.com/FGRibreau/mailchecker) | MIT | 56,331 | Copyright (c) 2013 Francois-Guillaume Ribreau. Cross-language disposable-email detection list. |
+| [disposable/disposable-email-domains](https://github.com/disposable/disposable-email-domains) | MIT | 96,305 | Copyright (c) 2017 Andrei Simionescu; Stefan Meinecke, greenSec GmbH. Largest single source. |
+| [FGRibreau/mailchecker](https://github.com/FGRibreau/mailchecker) | MIT | 56,512 | Copyright (c) 2013 Francois-Guillaume Ribreau. Cross-language disposable-email detection list. |
 | [wesbos/burner-email-providers](https://github.com/wesbos/burner-email-providers) | MIT | 27,277 | Burner / temporary email provider list. |
-| [disposable-email-domains/disposable-email-domains](https://github.com/disposable-email-domains/disposable-email-domains) | CC0-1.0 | 9,199 | Public-domain dedication, no copyright reserved. Formerly `martenson/disposable-email-domains`. |
+| [disposable-email-domains/disposable-email-domains](https://github.com/disposable-email-domains/disposable-email-domains) | CC0-1.0 | 9,221 | Public-domain dedication, no copyright reserved. Formerly `martenson/disposable-email-domains`. |
 
-Merged, de-duplicated and validated as domain-shaped, then reduced by the exclusion stage above: **97,918 unique domains**.
+Merged, de-duplicated and validated as domain-shaped, then reduced by the exclusion stage above: **96,434 unique domains** (counts above are a fresh fetch taken 2026-10-09, not the original build; the merged total is lower than the raw sum because of de-duplication across sources and the exclusion stage).
 
 The three MIT sources permit redistribution, modification and merging provided the
 copyright and permission notice is preserved, which is why their notices are reproduced
