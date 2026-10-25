@@ -63609,6 +63609,7 @@ tempmail-5.net
 tempmail.al
 tempmail.altmails.com
 tempmail.at
+tempmail.au
 tempmail.bearzi.it
 tempmail.best
 tempmail.cc
@@ -63664,6 +63665,7 @@ tempmailid.com
 tempmailid.net
 tempmailid.org
 tempmailin.com
+tempmailnow.io
 tempmailo.com
 tempmailo.org
 tempmailr.com
